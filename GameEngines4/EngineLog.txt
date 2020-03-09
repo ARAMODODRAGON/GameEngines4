@@ -1,0 +1,24 @@
+[INFO]: Graphics card: GeForce GTX 1050 Ti/PCIe/SSE2 in: Window.cpp on line: 48
+[INFO]: OpenGL version: 4.5.0 NVIDIA 440.97 in: Window.cpp on line: 49
+[INFO]: Creating StartScene in: StartScene.cpp on line: 6
+[INFO]: Creating GameScene in: GameScene.cpp on line: 7
+[INFO]: Texture was not found, now loading: Apple_Body.jpg in: LoadOBJModel.cpp on line: 36
+[INFO]: Texture was not found, now loading: Apple_Branch.jpg in: LoadOBJModel.cpp on line: 36
+[INFO]: model:           5 in: Mesh.cpp on line: 94
+[INFO]: view:            7 in: Mesh.cpp on line: 95
+[INFO]: proj:            6 in: Mesh.cpp on line: 96
+[INFO]: texture:         1 in: Mesh.cpp on line: 97
+[INFO]: cameraPosLoc:    0 in: Mesh.cpp on line: 98
+[INFO]: lightPosLoc:     4 in: Mesh.cpp on line: 99
+[INFO]: lightAmbientLoc: 2 in: Mesh.cpp on line: 100
+[INFO]: lightDiffuseLoc: 4294967295 in: Mesh.cpp on line: 101
+[INFO]: lightColorLoc:   3 in: Mesh.cpp on line: 102
+[INFO]: model:           5 in: Mesh.cpp on line: 94
+[INFO]: view:            7 in: Mesh.cpp on line: 95
+[INFO]: proj:            6 in: Mesh.cpp on line: 96
+[INFO]: texture:         1 in: Mesh.cpp on line: 97
+[INFO]: cameraPosLoc:    0 in: Mesh.cpp on line: 98
+[INFO]: lightPosLoc:     4 in: Mesh.cpp on line: 99
+[INFO]: lightAmbientLoc: 2 in: Mesh.cpp on line: 100
+[INFO]: lightDiffuseLoc: 4294967295 in: Mesh.cpp on line: 101
+[INFO]: lightColorLoc:   3 in: Mesh.cpp on line: 102

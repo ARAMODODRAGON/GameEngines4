@@ -1,0 +1,23 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(452,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (GameEngines4.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  Camera.cpp
+  Debug.cpp
+  CoreEngine.cpp
+  LightSource.cpp
+  ShaderHandler.cpp
+  TextureHandler.cpp
+D:\Documents\~~Projects\GameEngines4\GameEngines4\Engine\Graphics\TextureHandler.cpp(47,26): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  GameObject.cpp
+  LoadOBJModel.cpp
+  Mesh.cpp
+  Model.cpp
+D:\Documents\~~Projects\GameEngines4\GameEngines4\Engine\Graphics\TextureHandler.cpp(48,27): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\Documents\~~Projects\GameEngines4\GameEngines4\Engine\Rendering\3D\Model.cpp(53,25): warning C4018: '>=': signed/unsigned mismatch
+  Game1.cpp
+  GameScene.cpp
+  StartScene.cpp
+  Main.cpp
+  Window.cpp
+  Timer.cpp
+  Generating Code...
+D:\Documents\~~Projects\GameEngines4\GameEngines4\Engine\Rendering\3D\Model.cpp(61,25): warning C4018: '>=': signed/unsigned mismatch
+  GameEngines4.vcxproj -> D:\Documents\~~Projects\GameEngines4\Debug\GameEngines4Ver2.exe
