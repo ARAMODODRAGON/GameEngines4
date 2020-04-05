@@ -11,7 +11,7 @@
 class ShaderHandler {
 	std::string ReadShader(const std::string& filename);
 	GLuint CreateShader(GLenum shaderType, const std::string& source);
-	std::map<std::string, GLuint> programs;
+	static std::map<std::string, GLuint> programs;
 
 	// singleton
 	static std::unique_ptr<ShaderHandler> Singleton;
@@ -23,7 +23,7 @@ public:
 	// disable copy & move constructors/operators
 	ShaderHandler(const ShaderHandler&) = delete;
 	ShaderHandler(ShaderHandler&&) = delete;
-	ShaderHandler& operator=(const ShaderHandler) = delete;
+	ShaderHandler& operator=(const ShaderHandler&) = delete;
 	ShaderHandler& operator=(ShaderHandler&&) = delete;
 	// end singleton
 

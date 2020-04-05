@@ -2,6 +2,8 @@
 #define LOAD_OBJ_MODEL_H
 
 #include "Mesh.h"
+#include "../../Math/BoundingBox.h"
+#include "../../FX/MaterialLoader.h"
 
 class LoadOBJModel {
 
@@ -16,7 +18,9 @@ class LoadOBJModel {
 	void LoadMaterial(const string& matName);
 	void LoadMaterialLibrary(const string& matFilePath);
 
-	GLuint currentTex;
+	Material currentMaterial;
+
+	BoundingBox box;
 
 public:
 
@@ -30,6 +34,7 @@ public:
 	std::vector<Vertex> GetVerts() const { return meshVerticies; }
 	std::vector<int> GetIndices() const { return indices; }
 	std::vector<Submesh> GetSubmeshes() const { return submeshes; }
+	BoundingBox GetBoundingBox() const { return box; }
 
 };
 

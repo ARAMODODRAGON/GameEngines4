@@ -2,9 +2,12 @@
 #define GAMEOBJECT_H
 
 #include "Model.h"
+#include <string>
 
 class GameObject {
 private:
+
+	std::string name;
 
 	// model
 	Model* model;
@@ -16,6 +19,18 @@ private:
 	glm::vec3 scale;
 
 	int modelInstance;
+	BoundingBox box;
+
+	bool hit;
+
+	void UpdateModel() {
+		if (model) {
+			model->UpdateInstance(modelInstance, position, angle, rotation, scale);
+			box.transform = model->GetModelMat(modelInstance);
+			box.min *= (scale.x > 1.0f ? 1.0f : (scale.x * 0.5f));
+			box.max *= (scale.x > 1.0f ? 1.0f : (scale.x * 0.5f));
+		}
+	}
 
 public:
 	GameObject(Model* model_, const glm::vec3& pos = glm::vec3());
@@ -26,25 +41,29 @@ public:
 
 	glm::vec3 GetPosition() const {
 		return position;
-		if (model) model->UpdateInstance(modelInstance, position, angle, rotation, scale);
 	}
 	glm::vec3 GetRotation() const {
 		return rotation;
-		if (model) model->UpdateInstance(modelInstance, position, angle, rotation, scale);
 	}
 	float GetAngle() const {
 		return angle;
-		if (model) model->UpdateInstance(modelInstance, position, angle, rotation, scale);
 	}
 	glm::vec3 GetScale() const {
 		return scale;
-		if (model) model->UpdateInstance(modelInstance, position, angle, rotation, scale);
 	}
+	BoundingBox GetBoundingBox() const { return box; }
+	std::string GetName() const { return name; }
+	bool GetHit() const { return hit; }
 
-	void SetPosition(const glm::vec3& pos) { position = pos; }
-	void SetRotation(const glm::vec3& rot) { rotation = rot; }
-	void SetAngle(const float& ang) { angle = ang; }
-	void SetScale(const glm::vec3& s) { scale = s; }
+	void SetPosition(const glm::vec3& pos) { position = pos; UpdateModel(); }
+	void SetRotation(const glm::vec3& rot) { rotation = rot;  UpdateModel(); }
+	void SetAngle(const float& ang) { angle = ang; UpdateModel(); }
+	void SetScale(const glm::vec3& s) { scale = s; UpdateModel(); }
+	void SetName(const std::string name_) { name = name_; }
+	void SetHit(const bool hit_) {
+		hit = hit_;
+		if (hit) { std::cout << "this object was hit (name: \"" + name + "\")" << std::endl; }
+	}
 
 private:
 

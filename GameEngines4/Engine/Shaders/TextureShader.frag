@@ -13,28 +13,37 @@ struct Light {
 	vec3 color;
 };
 
-uniform sampler2D image;
+struct Material {
+	sampler2D diffuseMap;
+	float shinyness;
+	float transparency;
+	vec3 ambient;
+	vec3 diffuse;
+	vec3 specular;
+};
+
 uniform vec3 cameraPos;
 uniform Light light;
+uniform Material mat;
 
 void main() {
+	
+	//ambient 
+	vec3 ambient = light.ambient * mat.ambient * texture(mat.diffuseMap, outTexCoords).rgb * light.color;
 
-	vec3 ambient = light.ambient* texture(image, outTexCoords).rgb* light.color;
+	//diffuse
+	vec3 norm = normalize(outNormal);
+	vec3 lightDir = normalize(light.position - outFragPos); 
+	float diff = max(dot(norm, lightDir), 0.0);
+	vec3 diffuse = (diff * mat.diffuse) * texture(mat.diffuseMap, outTexCoords).rgb* light.color;
 
-    vec3 norm = normalize(outNormal);
-    vec3 lightDir = normalize(light.position - outFragPos);
-    float diff = max(dot(norm, lightDir), 0.0);
-    vec3 diffuse = diff * texture(image, outTexCoords).rgb* light.color;
+	//specular
+	vec3 viewDir = normalize(cameraPos - outFragPos);
+	vec3 reflectDir = reflect(-lightDir, norm);
+	float spec = pow(max(dot(viewDir, reflectDir), 0.0), mat.shinyness);
+	vec3 specular = (spec * mat.specular) * light.color;
+	vec3 result= ambient + diffuse + specular;
 
-    float specularStrength= 0.5;
-    vec3 viewDir = normalize(cameraPos - outFragPos);
-    vec3 reflectDir = reflect(-lightDir, norm);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
-    vec3 specular = specularStrength* spec * light.color;
+	fragColor = vec4(result, mat.transparency);
 
-    vec3 result= ambient + diffuse + specular;
-
-    fragColor = vec4(result, 1.0f);
-    //fragColor = vec4(0.0f, 0.0f, 0.0f, 1.0f);
-	//fragColor = texture(image, outTexCoords);
 }

@@ -6,13 +6,11 @@
 class GameScene : public IScene {
 private:
 
-	GameObject* shape;
-
 public:
 
 	// cosntructor and destructor
-	GameScene() : IScene(), shape(nullptr) { }
-	virtual ~GameScene() { }
+	GameScene();
+	virtual ~GameScene();
 
 	// inherited via IScene
 	virtual bool OnCreate() override;

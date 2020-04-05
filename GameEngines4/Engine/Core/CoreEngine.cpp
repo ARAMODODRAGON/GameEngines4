@@ -29,6 +29,9 @@ bool CoreEngine::OnCreate(std::string name_, int width_, int height_) {
 		return isRunning = false;
 	}
 
+	SDL_WarpMouseInWindow(window->GetWindow(), window->GetWidth() / 2, window->GetHeight() / 2);
+	MouseEventListener::RegisterEngineObject(this);
+
 	ShaderHandler::GetSingleton()->CreateProgram("ColorShader", "Engine/Shaders/ColorShader.vert", "Engine/Shaders/ColorShader.frag");
 	ShaderHandler::GetSingleton()->CreateProgram("TextureShader", "Engine/Shaders/TextureShader.vert", "Engine/Shaders/TextureShader.frag");
 
@@ -49,7 +52,7 @@ void CoreEngine::Run() {
 		// update
 		timer.UpdateGameTicks();
 
-		PollEvents();
+		EventListener::Update();
 
 		Update(timer.GetDeltaTimer());
 
@@ -67,6 +70,21 @@ void CoreEngine::SetCurrentScene(int sceneNumber) {
 	currentSceneNumber = sceneNumber;
 
 
+}
+
+void CoreEngine::NotifyOfMousePressed(glm::vec2 mousePos) {
+}
+
+void CoreEngine::NotifyOfMouseReleased(glm::vec2 mousePos, int button) {
+	CollisionHandler::GetSingleton()->MouseUpdate(mousePos, button);
+}
+
+void CoreEngine::NotifyOfMouseMove(glm::vec2 mousePos) {
+	if (camera) camera->ProcessMouseMovement(MouseEventListener::GetMouseOffset());
+}
+
+void CoreEngine::NotifyOfMouseScroll(int y) {
+	if (camera) camera->ProcessMouseZoom(y);
 }
 
 void CoreEngine::Update(const float& delta) {
@@ -96,6 +114,12 @@ void CoreEngine::Render() {
 
 void CoreEngine::OnDestroy() {
 
+	ShaderHandler::GetSingleton()->OnDestroy();
+	TextureHandler::GetSingleton()->OnDestroy();
+	SceneGraph::GetSingleton()->OnDestroy();
+	MaterialHandler::GetSingleton()->OnDestroy();
+	CollisionHandler::GetSingleton()->OnDestroy();
+
 	// delete the game
 	delete game; game = nullptr;
 	// destroy the window pointer
@@ -109,17 +133,3 @@ void CoreEngine::OnDestroy() {
 	// quit program
 	exit(0);
 }
-
-void CoreEngine::PollEvents() {
-	SDL_Event e;
-	while (SDL_PollEvent(&e)) {
-		switch (e.type) {
-		case SDL_QUIT:
-			isRunning = false;
-			break;
-		default: break;
-		}
-	}
-
-}
-

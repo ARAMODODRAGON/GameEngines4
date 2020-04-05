@@ -10,6 +10,10 @@
 #include "../Rendering/3D/GameObject.h"
 #include "../Camera/Camera.h"
 #include "../Graphics/TextureHandler.h"
+#include "../Event/MouseEventListener.h"
+#include "../Event/EventListener.h"
+#include "../Rendering/SceneGraph.h"
+#include "../Graphics/MaterialHandler.h"
 
 class CoreEngine {
 private:
@@ -27,7 +31,7 @@ public:
 	// disable copy & move constructors/operators for singleton
 	CoreEngine(const CoreEngine&) = delete;
 	CoreEngine(CoreEngine&&) = delete;
-	CoreEngine& operator=(const CoreEngine) = delete;
+	CoreEngine& operator=(const CoreEngine&) = delete;
 	CoreEngine& operator=(CoreEngine&&) = delete;
 
 private:
@@ -70,13 +74,19 @@ public:
 	void SetCurrentScene(int sceneNumber);
 	void SetCamera(Camera* camera_) { camera = camera_; }
 
+	/// notify
+
+	void NotifyOfMousePressed(glm::vec2 mousePos);
+	void NotifyOfMouseReleased(glm::vec2 mousePos, int button);
+	void NotifyOfMouseMove(glm::vec2 mousePos);
+	void NotifyOfMouseScroll(int y);
+
 private:
 
 	// events
 	void Update(const float& delta);
 	void Render();
 	void OnDestroy();
-	void PollEvents();
 
 };
 

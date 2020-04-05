@@ -7,6 +7,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "../../Camera/Camera.h"
 #include "../../Graphics/TextureHandler.h"
+#include "../../Graphics/MaterialHandler.h"
 
 struct Vertex {
 	glm::vec3 position;
@@ -18,7 +19,7 @@ struct Vertex {
 struct Submesh {
 	std::vector<Vertex> verticies;
 	std::vector<int> indices;
-	GLuint texID;
+	Material material;
 };
 
 class Mesh {
@@ -26,7 +27,9 @@ private:
 	// vertex object and vertex buffer
 	GLuint VAO, VBO;
 	GLuint shaderProgram;
-	GLuint modelLoc, viewLoc, proLoc, textureLoc, cameraPosLoc, lightPosLoc, lightAmbientLoc, lightDiffuseLoc, lightColorLoc;
+	GLuint modelLoc, viewLoc, proLoc, cameraPosLoc;
+	GLuint lightPosLoc, lightAmbientLoc, lightDiffuseLoc, lightColorLoc;
+	GLuint matDiffuseMapLoc, matShinynessLoc, matTransparencyLoc, matAmbientLoc, matDiffuseLoc, matSpecularLoc;
 
 	Submesh submesh;
 

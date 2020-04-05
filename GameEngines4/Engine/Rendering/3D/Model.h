@@ -15,6 +15,8 @@ private:
 	GLuint shaderprogram;
 	std::vector<glm::mat4> modelInstances;
 
+	BoundingBox box;
+
 public:
 	Model(
 		const string& objFilePath,
@@ -42,7 +44,8 @@ public:
 
 	/// getters
 	glm::mat4 GetModelMat(int index) const;
-
+	BoundingBox GetBoundingBox() const { return box; }
+	GLuint GetShaderProgram() const { return shaderprogram; }
 
 private:
 

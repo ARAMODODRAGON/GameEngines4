@@ -16,7 +16,7 @@ void LoadOBJModel::PostProcessing() {
 	Submesh submesh;
 	submesh.verticies = meshVerticies;
 	submesh.indices = indices;
-	submesh.texID = currentTex;
+	submesh.material = currentMaterial;
 
 	submeshes.push_back(submesh);
 
@@ -24,37 +24,19 @@ void LoadOBJModel::PostProcessing() {
 	normalIndices.clear();
 	texIndices.clear();
 	meshVerticies.clear();
-	currentTex = 0;
+	currentMaterial = Material();
+
 }
 
 void LoadOBJModel::LoadMaterial(const string& matName) {
-	currentTex = TextureHandler::GetSingleton()->GetTexture(matName);
-
-	if (currentTex == 0) {
-		TextureHandler::GetSingleton()->CreateTexture(matName, "Resources/Textures/" + matName + ".jpg");
-		currentTex = TextureHandler::GetSingleton()->GetTexture(matName);
-		DEBUG_INFO("Texture was not found, now loading: " + matName + ".jpg");
-	}
+	currentMaterial = MaterialHandler::GetSingleton()->GetMaterial(matName);
 }
 
 void LoadOBJModel::LoadMaterialLibrary(const string& matFilePath) {
-	std::ifstream in(matFilePath.c_str(), std::ios::in);
-
-	if (!in) {
-		DEBUG_ERROR("failed to open file " + matFilePath);
-		return;
-	}
-
-	string line;
-
-	while (std::getline(in, line)) {
-		if (line.substr(0, 7) == "newmtl ") {
-			LoadMaterial(line.substr(7));
-		}
-	}
+	MaterialLoader::LoadMaterial(matFilePath);
 }
 
-LoadOBJModel::LoadOBJModel() : currentTex(0) {
+LoadOBJModel::LoadOBJModel() : currentMaterial() {
 	verticies.reserve(200);
 	normals.reserve(200);
 	texCoords.reserve(200);
@@ -150,4 +132,17 @@ void LoadOBJModel::LoadModel(const string& filepath) {
 	}
 
 	PostProcessing();
+
+	// figure out the min and max bounds
+
+	for (size_t i = 0; i < verticies.size(); i++) {
+		if (verticies[i].x < box.min.x) box.min.x = verticies[i].x;
+		if (verticies[i].y < box.min.y) box.min.y = verticies[i].y;
+		if (verticies[i].z < box.min.z) box.min.z = verticies[i].z;
+
+		if (verticies[i].x > box.max.x) box.max.x = verticies[i].x;
+		if (verticies[i].y > box.max.y) box.max.y = verticies[i].y;
+		if (verticies[i].z > box.max.z) box.max.z = verticies[i].z;
+	}
+
 }

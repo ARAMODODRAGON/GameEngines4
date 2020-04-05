@@ -1,6 +1,8 @@
 #include "ShaderHandler.h"
+#include "../Core/Debug.h"
 
 std::unique_ptr<ShaderHandler> ShaderHandler::Singleton = nullptr;
+std::map<std::string, GLuint> ShaderHandler::programs = std::map<std::string, GLuint>();
 
 std::string ShaderHandler::ReadShader(const std::string& filename) {
 	std::string shadercode = "";
@@ -49,12 +51,12 @@ GLuint ShaderHandler::CreateShader(GLenum shaderType, const std::string& source)
 	return shader;
 }
 
-ShaderHandler::ShaderHandler() { 
-	programs = std::map<std::string, GLuint>();
+ShaderHandler::ShaderHandler() {
+
 }
 
 ShaderHandler::~ShaderHandler() {
-	OnDestroy();
+
 }
 
 ShaderHandler* ShaderHandler::GetSingleton() {
@@ -128,8 +130,10 @@ void ShaderHandler::OnDestroy() {
 
 		auto iter = programs.begin();
 
-		for (; iter != programs.end(); ++iter) {
+		while (iter != programs.end()) {
 			glDeleteProgram(iter->second);
+			++iter;
+			break;
 		}
 
 		programs.clear();

@@ -1,14 +1,13 @@
 #include "Model.h"
 
 Model::Model(
-	const string& objFilePath, 
-	const string& mtlFilePath, 
+	const string& objFilePath,
+	const string& mtlFilePath,
 	GLuint program
 )
 	: subMeshes(std::vector<Mesh*>())
 	, shaderprogram(program)
-	, loadObj(nullptr)
-{
+	, loadObj(nullptr) {
 	// reserve some memory for the submeshes
 	subMeshes.reserve(10);
 	modelInstances.reserve(5);
@@ -30,12 +29,9 @@ Model::~Model() {
 
 void Model::Render(Camera* camera) {
 	if (subMeshes.size() > 0) {
-
-		glUseProgram(shaderprogram);
 		for (unsigned int i = 0; i < subMeshes.size(); ++i) {
 			subMeshes[i]->Render(camera, modelInstances);
 		}
-		glUseProgram(0);
 	}
 }
 
@@ -49,7 +45,7 @@ int Model::CreateInstance(vec3 position, float angle, vec3 rotation, vec3 scale)
 	return modelInstances.size() - 1;
 }
 
-void Model::UpdateInstance(int index, vec3 position, float angle, vec3 rotation, vec3 scale) { 
+void Model::UpdateInstance(int index, vec3 position, float angle, vec3 rotation, vec3 scale) {
 	if (index < 0 || index >= modelInstances.size()) {
 		DEBUG_ERROR("index was out of range");
 		return;
@@ -66,9 +62,9 @@ glm::mat4 Model::GetModelMat(int index) const {
 }
 
 glm::mat4 Model::GetModelMat(
-	vec3 position, 
-	float angle, 
-	vec3 rotation, 
+	vec3 position,
+	float angle,
+	vec3 rotation,
 	vec3 scale
 ) const {
 	glm::mat4 model;
@@ -78,10 +74,13 @@ glm::mat4 Model::GetModelMat(
 	return model;
 }
 
-void Model::LoadModel() { 
+void Model::LoadModel() {
 	for (size_t i = 0; i < loadObj->GetSubmeshes().size(); ++i) {
 		subMeshes.push_back(new Mesh(loadObj->GetSubmeshes()[i], shaderprogram));
 	}
+
+	box = loadObj->GetBoundingBox();
+
 	delete loadObj;
 	loadObj = nullptr;
 }

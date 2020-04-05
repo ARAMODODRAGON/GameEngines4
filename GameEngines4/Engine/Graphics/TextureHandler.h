@@ -29,7 +29,7 @@ class TextureHandler {
 	// disable copy & move constructors/operators
 	TextureHandler(const TextureHandler&) = delete;
 	TextureHandler(TextureHandler&&) = delete;
-	TextureHandler& operator=(const TextureHandler) = delete;
+	TextureHandler& operator=(const TextureHandler&) = delete;
 	TextureHandler& operator=(TextureHandler&&) = delete;
 public:
 	static TextureHandler* GetSingleton();
