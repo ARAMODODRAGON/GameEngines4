@@ -1,5 +1,6 @@
 #include "Mesh.h"
 #include "../../Core/Debug.h"
+#include <glm/gtx/string_cast.hpp>
 
 Mesh::Mesh(const Submesh& subMesh_, GLuint program)
 	: submesh(subMesh_)
@@ -67,6 +68,17 @@ void Mesh::Render(Camera* camera, std::vector<glm::mat4> instances) {
 	glBindVertexArray(VAO);
 
 	for (size_t i = 0; i < instances.size(); i++) {
+		// check if it should be drawn
+		vec4 notScreenPos = camera->GetPersp() * camera->GetView() * instances[i][3];
+		vec3 screenpos = vec3(notScreenPos.x, notScreenPos.y, notScreenPos.z) / notScreenPos.w;
+		if (screenpos.x < -1.0f || screenpos.x > 1.0f || screenpos.y < -1.0f || screenpos.y > 1.0f || screenpos.z < -1.0f || screenpos.z > 1.0f) {
+			std::cout << "not drawing " << std::endl;
+			//std::cout << glm::to_string(screenpos) << std::endl;
+			continue;
+		}
+
+
+
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(instances[i]));
 		// draw
 		glDrawArrays(GL_TRIANGLES, 0, submesh.verticies.size());

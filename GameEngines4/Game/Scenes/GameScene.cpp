@@ -39,6 +39,11 @@ bool GameScene::OnCreate() {
 	// add a light
 	CoreEngine::GetSingleton()->GetCamera()->AddLightSource(new LightSource(vec3(1.0f, 4.0f, 5.0f), 0.1f, 0.5f, vec3(1.0f, 1.0f, 1.0f)));
 
+	std::cout << "dice  min: " << glm::to_string(model0->GetBoundingBox().min) << std::endl;
+	std::cout << "dice  max: " << glm::to_string(model0->GetBoundingBox().max) << std::endl;
+	std::cout << "apple min: " << glm::to_string(model1->GetBoundingBox().min) << std::endl;
+	std::cout << "apple max: " << glm::to_string(model1->GetBoundingBox().max) << std::endl;
+
 	return true;
 }
 

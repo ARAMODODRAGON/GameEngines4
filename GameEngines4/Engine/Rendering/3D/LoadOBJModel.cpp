@@ -45,6 +45,8 @@ LoadOBJModel::LoadOBJModel() : currentMaterial() {
 	texIndices.reserve(200);
 	meshVerticies.reserve(200);
 	submeshes.reserve(10);
+	box.min = vec3(INFINITY);
+	box.max = vec3(-INFINITY);
 }
 
 LoadOBJModel::~LoadOBJModel() { OnDestory(); }

@@ -26,9 +26,8 @@ private:
 	void UpdateModel() {
 		if (model) {
 			model->UpdateInstance(modelInstance, position, angle, rotation, scale);
+			box = model->GetBoundingBox();
 			box.transform = model->GetModelMat(modelInstance);
-			box.min *= (scale.x > 1.0f ? 1.0f : (scale.x * 0.5f));
-			box.max *= (scale.x > 1.0f ? 1.0f : (scale.x * 0.5f));
 		}
 	}
 
@@ -58,7 +57,13 @@ public:
 	void SetPosition(const glm::vec3& pos) { position = pos; UpdateModel(); }
 	void SetRotation(const glm::vec3& rot) { rotation = rot;  UpdateModel(); }
 	void SetAngle(const float& ang) { angle = ang; UpdateModel(); }
-	void SetScale(const glm::vec3& s) { scale = s; UpdateModel(); }
+	void SetScale(const glm::vec3& s) {
+		scale = s; UpdateModel();
+		box.min.x *= (scale.x > scale.x ? 1.0f : (scale.x * 0.5f));
+		box.min.y *= (scale.y > scale.y ? 1.0f : (scale.y * 0.5f));
+		box.max.x *= (scale.x > scale.x ? 1.0f : (scale.x * 0.5f));
+		box.max.y *= (scale.y > scale.y ? 1.0f : (scale.y * 0.5f));
+	}
 	void SetName(const std::string name_) { name = name_; }
 	void SetHit(const bool hit_) {
 		hit = hit_;
