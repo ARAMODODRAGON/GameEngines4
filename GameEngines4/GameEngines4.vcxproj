@@ -136,6 +136,7 @@
     <ClCompile Include="Engine\Camera\Camera.cpp" />
     <ClCompile Include="Engine\Core\Debug.cpp" />
     <ClCompile Include="Engine\Core\CoreEngine.cpp" />
+    <ClCompile Include="Engine\Core\OctSpatialPartition.cpp" />
     <ClCompile Include="Engine\Event\EventListener.cpp" />
     <ClCompile Include="Engine\Event\MouseEventListener.cpp" />
     <ClCompile Include="Engine\FX\LightSource.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="Engine\Core\CoreEngine.h" />
     <ClInclude Include="Engine\Core\IGame.h" />
     <ClInclude Include="Engine\Core\IScene.h" />
+    <ClInclude Include="Engine\Core\OctSpatialPartition.h" />
     <ClInclude Include="Engine\Core\Window.h" />
     <ClInclude Include="Engine\Core\Time.h" />
     <ClInclude Include="Engine\Core\Timer.h" />

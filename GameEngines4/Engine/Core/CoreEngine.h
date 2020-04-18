@@ -23,8 +23,8 @@ private:
 	friend std::default_delete<CoreEngine>;
 
 	// constructor and destructor
-	CoreEngine() : isRunning(false), window(nullptr), fps(60), game(nullptr), currentSceneNumber(0),camera(nullptr) { }
-	~CoreEngine() { OnDestroy(); }
+	CoreEngine() : isRunning(false), window(nullptr), fps(60), game(nullptr), currentSceneNumber(0), camera(nullptr) { }
+	~CoreEngine() { }
 
 public:
 
@@ -56,6 +56,7 @@ public:
 
 	// creation
 	bool OnCreate(std::string name_, int width_, int height_);
+	void OnDestroy();
 
 	// the main loop
 	void Run();
@@ -86,7 +87,6 @@ private:
 	// events
 	void Update(const float& delta);
 	void Render();
-	void OnDestroy();
 
 };
 

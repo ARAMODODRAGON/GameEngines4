@@ -2,7 +2,6 @@
 #include "../Core/Debug.h"
 
 std::unique_ptr<ShaderHandler> ShaderHandler::Singleton = nullptr;
-std::map<std::string, GLuint> ShaderHandler::programs = std::map<std::string, GLuint>();
 
 std::string ShaderHandler::ReadShader(const std::string& filename) {
 	std::string shadercode = "";
@@ -133,7 +132,6 @@ void ShaderHandler::OnDestroy() {
 		while (iter != programs.end()) {
 			glDeleteProgram(iter->second);
 			++iter;
-			break;
 		}
 
 		programs.clear();

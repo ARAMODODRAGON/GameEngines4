@@ -15,5 +15,7 @@ int main(int argc, char* argv[]) {
 	// start main loop
 	CoreEngine::GetSingleton()->Run();
 	
+	CoreEngine::GetSingleton()->OnDestroy();
+
 	return 0;
 }

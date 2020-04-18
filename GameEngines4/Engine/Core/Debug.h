@@ -46,10 +46,10 @@ private:
 #define TEXT(value) std::to_string(value)
 #define __FILENAME__ Debug::GetFilenameFromPath(__FILE__)
 #define DEBUG_INFO(message) Debug::Info(message, __FILENAME__, __LINE__)
-#define DEBUG_TRACE(message) Debug::Info(message, __FILENAME__, __LINE__)
-#define DEBUG_WARNING(message) Debug::Info(message, __FILENAME__, __LINE__)
-#define DEBUG_ERROR(message) Debug::Info(message, __FILENAME__, __LINE__)
-#define DEBUG_FATALERROR(message) Debug::Info(message, __FILENAME__, __LINE__)
+#define DEBUG_TRACE(message) Debug::Trace(message, __FILENAME__, __LINE__)
+#define DEBUG_WARNING(message) Debug::Warning(message, __FILENAME__, __LINE__)
+#define DEBUG_ERROR(message) Debug::Error(message, __FILENAME__, __LINE__)
+#define DEBUG_FATALERROR(message) Debug::FatalError(message, __FILENAME__, __LINE__)
 
 
 #endif // !DEBUG_H

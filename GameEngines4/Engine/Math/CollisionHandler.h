@@ -4,6 +4,7 @@
 #include "Ray.h"
 #include "../Rendering/3D/GameObject.h"
 #include <memory>
+#include "../Core/OctSpatialPartition.h"
 
 class CollisionHandler {
 
@@ -19,8 +20,8 @@ class CollisionHandler {
 	CollisionHandler();
 	~CollisionHandler();
 
-	static std::vector<GameObject*> colliders;
 	static std::vector<GameObject*> prevCollisions;
+	static OctSpatialPartition* scenePartition;
 
 public:
 
@@ -34,7 +35,7 @@ public:
 		return Singleton.get();
 	}
 
-	void OnCreate();
+	void OnCreate(float worldsize);
 	void AddObject(GameObject* go);
 	void MouseUpdate(vec2 mousePos, int button);
 	void OnDestroy();

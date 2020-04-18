@@ -72,7 +72,7 @@ void Mesh::Render(Camera* camera, std::vector<glm::mat4> instances) {
 		vec4 notScreenPos = camera->GetPersp() * camera->GetView() * instances[i][3];
 		vec3 screenpos = vec3(notScreenPos.x, notScreenPos.y, notScreenPos.z) / notScreenPos.w;
 		if (screenpos.x < -1.0f || screenpos.x > 1.0f || screenpos.y < -1.0f || screenpos.y > 1.0f || screenpos.z < -1.0f || screenpos.z > 1.0f) {
-			std::cout << "not drawing " << std::endl;
+			//std::cout << "not drawing " << std::endl;
 			//std::cout << glm::to_string(screenpos) << std::endl;
 			continue;
 		}

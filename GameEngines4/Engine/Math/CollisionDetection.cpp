@@ -13,7 +13,7 @@ Ray CollisionDetection::ScreenToWorldPosition(vec2 mousePos, vec2 screenSize, Ca
 	rayStartWorld /= rayStartWorld.w;
 
 	vec4 rayEndWorld = inverse * rayEndNDC;
-	rayEndWorld /= rayEndNDC.w;
+	rayEndWorld /= rayEndWorld.w;
 
 	vec3 rayDirWorld(rayEndWorld - rayStartWorld);
 	rayDirWorld = glm::normalize(rayDirWorld);

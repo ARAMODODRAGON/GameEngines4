@@ -1,5 +1,22 @@
 #include "GameObject.h"
 
+void GameObject::UpdateModel() {
+	if (model) {
+		model->UpdateInstance(modelInstance, position, angle, rotation, scale);
+		box = model->GetBoundingBox();
+		box.transform = model->GetModelMat(modelInstance);
+
+		if (name == "apple") {
+			//mat4 translate = glm::translate(mat4(), position);
+
+
+			//printf("%s position: %f %f %f\n", name.c_str(), box.transform[3].x, box.transform[3].y, box.transform[3].z);
+			//printf("%s position: %f %f %f\n", name.c_str(), position.x, position.y, position.z);
+			//printf("%s position: %f %f %f\n", name.c_str(), translate[3].x, translate[3].y, translate[3].z);
+		}
+	}
+}
+
 GameObject::GameObject(Model* model_, const glm::vec3& pos)
 	: model(model_)
 	, position(pos)
@@ -10,8 +27,7 @@ GameObject::GameObject(Model* model_, const glm::vec3& pos)
 	, hit() {
 	if (model) {
 		modelInstance = model->CreateInstance(position, angle, rotation, scale);
-		box = model->GetBoundingBox();
-		box.transform = model->GetModelMat(modelInstance);
+		UpdateModel();
 	}
 }
 
@@ -26,6 +42,7 @@ void GameObject::Render(Camera* camera) {
 }
 
 void GameObject::Update(const float& delta) {
+	// set angle updates the model
 	SetAngle(GetAngle() + 0.5f * delta);
 
 }

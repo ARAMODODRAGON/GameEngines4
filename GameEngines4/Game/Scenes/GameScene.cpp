@@ -13,7 +13,7 @@ GameScene::~GameScene() {
 bool GameScene::OnCreate() {
 	DEBUG_INFO("Creating GameScene");
 
-	CollisionHandler::GetSingleton()->OnCreate();
+	CollisionHandler::GetSingleton()->OnCreate(100);
 
 	CoreEngine::GetSingleton()->SetCamera(new Camera());
 	CoreEngine::GetSingleton()->GetCamera()->SetPosition(glm::vec3(0.0f, 2.0f, 10.0f));
@@ -30,7 +30,7 @@ bool GameScene::OnCreate() {
 	SceneGraph::GetSingleton()->AddModel(model1);
 
 	// gameobject
-	GameObject* apple = new GameObject(model1, glm::vec3(3.0f, -1.0f, 0.0f));
+	GameObject* apple = new GameObject(model1, glm::vec3(5.0f, -1.0f, 0.0f));
 	apple->SetScale(glm::vec3(0.5f));
 
 	SceneGraph::GetSingleton()->AddGameObject(new GameObject(model0));

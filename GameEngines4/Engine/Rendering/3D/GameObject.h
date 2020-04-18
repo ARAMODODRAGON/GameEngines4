@@ -23,13 +23,7 @@ private:
 
 	bool hit;
 
-	void UpdateModel() {
-		if (model) {
-			model->UpdateInstance(modelInstance, position, angle, rotation, scale);
-			box = model->GetBoundingBox();
-			box.transform = model->GetModelMat(modelInstance);
-		}
-	}
+	void UpdateModel();
 
 public:
 	GameObject(Model* model_, const glm::vec3& pos = glm::vec3());
@@ -59,10 +53,10 @@ public:
 	void SetAngle(const float& ang) { angle = ang; UpdateModel(); }
 	void SetScale(const glm::vec3& s) {
 		scale = s; UpdateModel();
-		box.min.x *= (scale.x > scale.x ? 1.0f : (scale.x * 0.5f));
-		box.min.y *= (scale.y > scale.y ? 1.0f : (scale.y * 0.5f));
-		box.max.x *= (scale.x > scale.x ? 1.0f : (scale.x * 0.5f));
-		box.max.y *= (scale.y > scale.y ? 1.0f : (scale.y * 0.5f));
+		//box.min *= (scale.x > 1.0f ? 1.0f : (scale.x * 0.5f));
+		//box.max *= (scale.x > 1.0f ? 1.0f : (scale.x * 0.5f));
+		box.min *= scale;
+		box.max *= scale;
 	}
 	void SetName(const std::string name_) { name = name_; }
 	void SetHit(const bool hit_) {
