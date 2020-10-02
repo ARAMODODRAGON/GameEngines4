@@ -3,6 +3,8 @@
 
 #include "Model.h"
 #include <string>
+#include "Component.h"
+#include <vector>
 
 class GameObject {
 private:
@@ -23,6 +25,8 @@ private:
 
 	bool hit;
 
+	std::vector<Component*> components;
+
 	void UpdateModel();
 
 public:
@@ -32,18 +36,10 @@ public:
 	void Render(Camera* camera);
 	void Update(const float& delta);
 
-	glm::vec3 GetPosition() const {
-		return position;
-	}
-	glm::vec3 GetRotation() const {
-		return rotation;
-	}
-	float GetAngle() const {
-		return angle;
-	}
-	glm::vec3 GetScale() const {
-		return scale;
-	}
+	glm::vec3 GetPosition() const { return position; }
+	glm::vec3 GetRotation() const { return rotation; }
+	float GetAngle() const { return angle; }
+	glm::vec3 GetScale() const { return scale; }
 	BoundingBox GetBoundingBox() const { return box; }
 	std::string GetName() const { return name; }
 	bool GetHit() const { return hit; }
@@ -62,6 +58,54 @@ public:
 	void SetHit(const bool hit_) {
 		hit = hit_;
 		if (hit) { std::cout << "this object was hit (name: \"" + name + "\")" << std::endl; }
+	}
+
+	template<class T>
+	T* AddComponent() {
+		// first check if the component already exists and return it
+		if (T* comp = GetComponent<T>())
+			return comp;
+
+		// create a new T
+		T* comp = new T();
+
+		// it is a component add it
+		if (Component* c = dynamic_cast<Component*>(comp)) {
+			components.push_back(c);
+			c->SetObject(this);
+			c->OnCreate();
+			return comp;
+		} 
+		// it isnt a component delete it
+		else {
+			delete comp;
+			DEBUG_ERROR("T was not a type of component");
+			return nullptr;
+		}
+	}
+
+	template<class T>
+	T* GetComponent() {
+		for (size_t i = 0; i < components.size(); ++i) {
+			if (T* comp = dynamic_cast<T*>(components[i])) {
+				return comp;
+			}
+		}
+		return nullptr;
+	}
+
+	template<class T>
+	bool DestroyComponent() {
+		for (auto it = components.begin(); it != components.end(); ++it) {
+			if (T* comp = dynamic_cast<T*>(*it)) {
+				Component* c = *it;
+				c->OnDestroy();
+				delete c;
+				components.erase(it);
+				return true;
+			}
+		}
+		return false;
 	}
 
 private:

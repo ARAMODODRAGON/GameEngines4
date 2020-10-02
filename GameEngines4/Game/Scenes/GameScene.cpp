@@ -3,6 +3,7 @@
 #include "../../Engine/Graphics/ShaderHandler.h"
 #include "../../Engine/Core/CoreEngine.h"
 #include <glm/gtx/string_cast.hpp>
+#include "../../Engine/Components/TestComponent.h"
 
 GameScene::GameScene() : IScene() { }
 
@@ -32,6 +33,9 @@ bool GameScene::OnCreate() {
 	// gameobject
 	GameObject* apple = new GameObject(model1, glm::vec3(5.0f, -1.0f, 0.0f));
 	apple->SetScale(glm::vec3(0.5f));
+
+	apple->AddComponent<TestComponent1>();
+	apple->AddComponent<TestComponent2>();
 
 	SceneGraph::GetSingleton()->AddGameObject(new GameObject(model0));
 	SceneGraph::GetSingleton()->AddGameObject(apple, "apple");

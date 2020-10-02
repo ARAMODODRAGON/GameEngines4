@@ -32,6 +32,12 @@ GameObject::GameObject(Model* model_, const glm::vec3& pos)
 }
 
 GameObject::~GameObject() {
+	// delete components
+	for (Component* c : components) {
+		c->OnDestroy();
+		delete c;
+	}
+	components.clear();
 	// delete the model if there is one
 	model = nullptr;
 }
