@@ -49,6 +49,10 @@ void Game1::Render() {
 	if (scene) scene->Render();
 }
 
+void Game1::Draw() {
+	if (scene) scene->Draw();
+}
+
 void Game1::OnDestroy() {
 
 }

@@ -12,4 +12,6 @@ void StartScene::Update(const float& delta) { }
 
 void StartScene::Render() { }
 
+void StartScene::Draw() { }
+
 void StartScene::OnDestroy() { }

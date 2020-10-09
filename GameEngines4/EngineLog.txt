@@ -1,7 +1,7 @@
 [INFO]: Graphics card: GeForce GTX 1050 Ti/PCIe/SSE2 in: Window.cpp on line: 48
-[INFO]: OpenGL version: 4.5.0 NVIDIA 440.97 in: Window.cpp on line: 49
+[INFO]: OpenGL version: 4.5.0 NVIDIA 456.71 in: Window.cpp on line: 49
 [INFO]: Creating StartScene in: StartScene.cpp on line: 6
-[INFO]: Creating GameScene in: GameScene.cpp on line: 14
+[INFO]: Creating GameScene in: GameScene.cpp on line: 16
 [INFO]: Texture was not found, now loading: diceMap.jpg in: MaterialLoader.cpp on line: 11
 [INFO]: model:           10 in: Mesh.cpp on line: 140
 [INFO]: view:            12 in: Mesh.cpp on line: 141
@@ -47,3 +47,11 @@
 [INFO]: matAmbientLoc:   4 in: Mesh.cpp on line: 152
 [INFO]: matDiffuseLoc:   5 in: Mesh.cpp on line: 153
 [INFO]: matSpecularLoc:   8 in: Mesh.cpp on line: 154
+[INFO]: I am a test component #1 in: TestComponent.cpp on line: 8
+[INFO]: I am a test component #2 in: TestComponent.cpp on line: 22
+[INFO]: Width: 2000 Height: 2000 in: SpriteSurface.cpp on line: 21
+[INFO]: shaderProgram: 9 in: SpriteSurface.cpp on line: 57
+[INFO]: modeLoc: 1 in: SpriteSurface.cpp on line: 58
+[INFO]: projLoc: 4294967295 in: SpriteSurface.cpp on line: 59
+[INFO]: tintLoc: 2 in: SpriteSurface.cpp on line: 60
+[INFO]: textureLoc: 0 in: SpriteSurface.cpp on line: 61

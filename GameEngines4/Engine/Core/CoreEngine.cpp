@@ -34,6 +34,7 @@ bool CoreEngine::OnCreate(std::string name_, int width_, int height_) {
 
 	ShaderHandler::GetSingleton()->CreateProgram("ColorShader", "Engine/Shaders/ColorShader.vert", "Engine/Shaders/ColorShader.frag");
 	ShaderHandler::GetSingleton()->CreateProgram("TextureShader", "Engine/Shaders/TextureShader.vert", "Engine/Shaders/TextureShader.frag");
+	ShaderHandler::GetSingleton()->CreateProgram("SpriteShader", "Engine/Shaders/SpriteVertShader.glsl", "Engine/Shaders/SpriteFragShader.glsl");
 
 	// create game
 	if (game && !game->OnCreate()) {
@@ -72,8 +73,7 @@ void CoreEngine::SetCurrentScene(int sceneNumber) {
 
 }
 
-void CoreEngine::NotifyOfMousePressed(glm::vec2 mousePos) {
-}
+void CoreEngine::NotifyOfMousePressed(glm::vec2 mousePos) { }
 
 void CoreEngine::NotifyOfMouseReleased(glm::vec2 mousePos, int button) {
 	CollisionHandler::GetSingleton()->MouseUpdate(mousePos, button);
@@ -99,12 +99,14 @@ void CoreEngine::Update(const float& delta) {
 void CoreEngine::Render() {
 
 	// clear the screen
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	/// render game
+	/// render objects
 	if (game) {
 		game->Render();
+
+		game->Draw();
 	}
 
 	// swap buffers

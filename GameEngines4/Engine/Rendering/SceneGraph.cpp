@@ -1,27 +1,50 @@
 #include "SceneGraph.h"
+#include "../Graphics/ShaderHandler.h"
 
 std::unique_ptr<SceneGraph> SceneGraph::Singleton = nullptr;
-std::map<GLuint, std::vector<Model*>> SceneGraph::sceneModels = std::map<GLuint, std::vector<Model*>>();
-std::map<std::string, GameObject*> SceneGraph::sceneGameObjects = std::map<std::string, GameObject*>();
+std::map<GLuint, std::vector<Model*>> SceneGraph::sceneModels;
+std::map<std::string, GameObject*> SceneGraph::sceneGameObjects;
+std::map<std::string, GUIObject*> SceneGraph::sceneGUIObjects;
 
-SceneGraph::SceneGraph() {
-
+SceneGraph::SceneGraph() : guiShaderProgram(0) {
+	guiShaderProgram = ShaderHandler::GetSingleton()->GetShader("SpriteShader");
 }
 
 SceneGraph::~SceneGraph() {
 
 }
 
+void SceneGraph::Draw(Camera* camera) {
+	glDisable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glUseProgram(guiShaderProgram);
+
+	for (const auto& p : sceneGUIObjects) {
+		p.second->Draw(camera);
+	}
+
+	glUseProgram(0);
+	glDisable(GL_BLEND);
+	glEnable(GL_DEPTH_TEST);
+}
+
 void SceneGraph::OnDestroy() {
 
 	if (sceneGameObjects.size() > 0) {
-		for (std::pair<const std::string, GameObject*> go : sceneGameObjects)
+		for (auto go : sceneGameObjects)
 			delete go.second;
 		sceneGameObjects.clear();
 	}
 
+	if (sceneGUIObjects.size() > 0) {
+		for (auto go : sceneGUIObjects)
+			delete go.second;
+		sceneGUIObjects.clear();
+	}
+
 	if (sceneModels.size() > 0) {
-		for (std::pair<const GLuint, std::vector<Model*>> mv : sceneModels) {
+		for (auto mv : sceneModels) {
 			for (Model* model : mv.second) {
 				delete model;
 			}
@@ -66,6 +89,29 @@ GameObject* SceneGraph::GetGameObject(std::string name_) {
 		return sceneGameObjects[name_];
 
 	}
+	return nullptr;
+}
+
+void SceneGraph::AddGUIObject(GUIObject* gui, std::string tag) {
+	if (tag == "") {
+		std::string newTag = "GUIObject " + std::to_string(sceneGUIObjects.size() + 1);
+		gui->SetTag(newTag);
+		sceneGUIObjects[newTag] = gui;
+	} else if (sceneGUIObjects.find(tag) == sceneGUIObjects.end()) {
+		gui->SetTag(tag);
+		sceneGUIObjects[tag] = gui;
+	} else {
+		std::string newTag = "GUIObject " + std::to_string(sceneGUIObjects.size() + 1);
+		gui->SetTag(newTag);
+		sceneGUIObjects[newTag] = gui;
+
+		DEBUG_ERROR("Cannot add GUIObject with name " + tag + " (name already exists) given new name: " + newTag);
+	}
+}
+
+GUIObject* SceneGraph::GetGUIObject(std::string tag) {
+	if (sceneGUIObjects.find(tag) != sceneGUIObjects.end())
+		return sceneGUIObjects[tag];
 	return nullptr;
 }
 

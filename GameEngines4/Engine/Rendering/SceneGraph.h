@@ -6,6 +6,7 @@
 #include <vector>
 #include "3D/GameObject.h"
 #include "../Math/CollisionHandler.h"
+#include "../GUI/GUIObject.h"
 
 class SceneGraph {
 
@@ -23,6 +24,8 @@ class SceneGraph {
 
 	static std::map<GLuint, std::vector<Model*>> sceneModels;
 	static std::map<std::string, GameObject*> sceneGameObjects;
+	static std::map<std::string, GUIObject*> sceneGUIObjects;
+	unsigned int guiShaderProgram;
 
 public:
 
@@ -36,11 +39,14 @@ public:
 		return Singleton.get();
 	}
 
+	void Draw(Camera* camera);
 	void OnDestroy();
 
 	void AddModel(Model* model_);
 	void AddGameObject(GameObject* go_, std::string name_ = "");
 	GameObject* GetGameObject(std::string name_);
+	void AddGUIObject(GUIObject* gui, std::string tag = "");
+	GUIObject* GetGUIObject(std::string tag);
 
 	void Update(const float delta);
 	void Render(Camera* camera_);

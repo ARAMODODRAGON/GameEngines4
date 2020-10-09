@@ -23,7 +23,8 @@ private:
 	friend std::default_delete<CoreEngine>;
 
 	// constructor and destructor
-	CoreEngine() : isRunning(false), window(nullptr), fps(60), game(nullptr), currentSceneNumber(0), camera(nullptr) { }
+	CoreEngine() 
+		: isRunning(false), window(nullptr), fps(60), game(nullptr), currentSceneNumber(0), camera(nullptr) { }
 	~CoreEngine() { }
 
 public:

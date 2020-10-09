@@ -22,6 +22,7 @@
 		virtual bool OnCreate() override;
 		virtual void Update(const float& delta) override;
 		virtual void Render() override;
+		virtual void Draw() override;
 		virtual void OnDestroy() override;
 
 		// methods

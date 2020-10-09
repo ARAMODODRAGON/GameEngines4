@@ -3,6 +3,8 @@
 #include "../../Engine/Graphics/ShaderHandler.h"
 #include "../../Engine/Core/CoreEngine.h"
 #include <glm/gtx/string_cast.hpp>
+#include "../../Engine/Components/TestComponent.h"
+#include "../../Engine/GUI/GUIImageComponent.h"
 
 GameScene::GameScene() : IScene() { }
 
@@ -28,10 +30,13 @@ bool GameScene::OnCreate() {
 
 	SceneGraph::GetSingleton()->AddModel(model0);
 	SceneGraph::GetSingleton()->AddModel(model1);
-
+	
 	// gameobject
 	GameObject* apple = new GameObject(model1, glm::vec3(5.0f, -1.0f, 0.0f));
 	apple->SetScale(glm::vec3(0.5f));
+
+	apple->AddComponent<TestComponent1>();
+	apple->AddComponent<TestComponent2>();
 
 	SceneGraph::GetSingleton()->AddGameObject(new GameObject(model0));
 	SceneGraph::GetSingleton()->AddGameObject(apple, "apple");
@@ -44,6 +49,14 @@ bool GameScene::OnCreate() {
 	std::cout << "apple min: " << glm::to_string(model1->GetBoundingBox().min) << std::endl;
 	std::cout << "apple max: " << glm::to_string(model1->GetBoundingBox().max) << std::endl;
 
+	GUIObject* gui = new GUIObject(vec2(0.0f));
+	GUIImageComponent* igui = gui->AddComponent<GUIImageComponent>();
+	if (igui) {
+		TextureHandler::GetSingleton()->CreateTexture("test", "Resources/Textures/CheckerboardTexture.png");
+		igui->OnCreate("test", vec2(0.0f), vec2(0.0f), 0.0f, vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	}
+	SceneGraph::GetSingleton()->AddGUIObject(gui, "test GUI");
+
 	return true;
 }
 
@@ -53,6 +66,10 @@ void GameScene::Update(const float& delta) {
 
 void GameScene::Render() {
 	SceneGraph::GetSingleton()->Render(CoreEngine::GetSingleton()->GetCamera());
+}
+
+void GameScene::Draw() { 
+	SceneGraph::GetSingleton()->Draw(CoreEngine::GetSingleton()->GetCamera());
 }
 
 void GameScene::OnDestroy() {

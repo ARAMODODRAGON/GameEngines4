@@ -17,6 +17,8 @@ public:
 
 	virtual void Render() override;
 
+	virtual void Draw() override;
+
 	virtual void OnDestroy() override;
 
 private:
