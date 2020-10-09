@@ -3,3 +3,5 @@
 D:\Documents\~~School\Semester 5\Game Engines 5\GameEngines5\GameEngines4\Engine\GUI\SpriteSurface.cpp(19,16): warning C4244: '=': conversion from 'const float' to 'unsigned int', possible loss of data
 D:\Documents\~~School\Semester 5\Game Engines 5\GameEngines5\GameEngines4\Engine\GUI\SpriteSurface.cpp(20,16): warning C4244: '=': conversion from 'const float' to 'unsigned int', possible loss of data
   GameEngines4.vcxproj -> D:\Documents\~~School\Semester 5\Game Engines 5\GameEngines5\Debug\GameEngines5.exe
+﻿  Debug.cpp
+  GameEngines4.vcxproj -> D:\Documents\~~Projects\GameEngines4\Debug\GameEngines4Ver2.exe

@@ -2,6 +2,7 @@
 [INFO]: OpenGL version: 4.5.0 NVIDIA 456.71 in: Window.cpp on line: 49
 [INFO]: Creating StartScene in: StartScene.cpp on line: 6
 [INFO]: Creating GameScene in: GameScene.cpp on line: 16
+[INFO]: Creating GameScene in: GameScene.cpp on line: 15
 [INFO]: Texture was not found, now loading: diceMap.jpg in: MaterialLoader.cpp on line: 11
 [INFO]: model:           10 in: Mesh.cpp on line: 140
 [INFO]: view:            12 in: Mesh.cpp on line: 141
