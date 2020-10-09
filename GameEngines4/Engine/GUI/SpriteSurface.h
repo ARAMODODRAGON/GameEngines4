@@ -5,6 +5,7 @@ using std::string;
 #include <glm/glm.hpp>
 using glm::vec2;
 using glm::vec4;
+using glm::ivec2;
 #include "../Graphics/TextureHandler.h"
 #include "../Camera/Camera.h"
 
@@ -18,7 +19,7 @@ class SpriteSurface {
 	vec2 scale;
 	float angle;
 	vec4 tint;
-	unsigned int sizeX, sizeY;
+	ivec2 size;
 	
 public:
 
@@ -29,8 +30,9 @@ public:
 	void Draw(Camera* camera, const vec2& position);
 
 	// getters & setters
-	vec2 GetSize() const { return scale; }
-	//void SetSize(const vec2& size_) { size = size_; }
+	vec2 GetScale() const { return scale; }
+	vec2 GetSize() const { return size; }
+	vec2 GetScaledSize() const { return scale * vec2(size); }
 
 };
 

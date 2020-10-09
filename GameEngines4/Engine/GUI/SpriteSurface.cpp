@@ -2,12 +2,13 @@
 #include "../Graphics/ShaderHandler.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/string_cast.hpp>
 
 SpriteSurface::SpriteSurface(const string& texture_, const vec2& scale_, const float& angle_, const vec4& tint_)
 	: VAO(0), VBO(0)
 	, modelLoc(0), projLoc(0), tintLoc(0), textureLoc(0)
 	, texID(0)
-	, scale(scale_), angle(angle_), tint(tint_), sizeX(0), sizeY(0) {
+	, scale(scale_), angle(angle_), tint(tint_), size(0) {
 
 	texID = TextureHandler::GetSingleton()->GetTexture(texture_);
 	if (texID == 0) {
@@ -16,9 +17,9 @@ SpriteSurface::SpriteSurface(const string& texture_, const vec2& scale_, const f
 
 	const auto* tdata = TextureHandler::GetSingleton()->GetTextureStruct(texture_);
 	if (tdata) {
-		sizeX = tdata->width;
-		sizeY = tdata->height;
-		DEBUG_INFO("Width: " + std::to_string(sizeX) + " Height: " + std::to_string(sizeY));
+		size.x = tdata->width;
+		size.y = tdata->height;
+		DEBUG_INFO("texture size: " + glm::to_string(size));
 	} else {
 		DEBUG_ERROR("No texture data!");
 	}
@@ -73,8 +74,8 @@ void SpriteSurface::Draw(Camera* camera, const vec2& position) {
 
 	glm::mat4 model;
 	glm::translate(model, vec3(position, 0.0f));
-	glm::rotate(model, angle, vec3(0.0f, 0.0f, 1.0));
-	//glm::scale(model, vec3(scale.x * sizeX, scale.y * sizeY, 1.0f));
+	glm::rotate(model, angle, vec3(0.0f, 0.0f, -1.0));
+	//glm::scale(model, vec3(scale.x * size.x, scale.y * size.y, 1.0f));
 	glm::scale(model, vec3(scale.x, scale.y, 1.0f));
 
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));

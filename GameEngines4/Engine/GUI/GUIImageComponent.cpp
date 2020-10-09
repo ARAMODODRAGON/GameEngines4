@@ -30,8 +30,8 @@ void GUIImageComponent::Draw(Camera* camera, const vec2& position) {
 bool GUIImageComponent::FindContainingPoint(const vec2& position, const vec2& point) {
 	if (!sprSurface) return false;
 
-	vec2 min = position + offset - sprSurface->GetSize();
-	vec2 max = position + offset + sprSurface->GetSize();
+	vec2 min = position + offset - sprSurface->GetScale();
+	vec2 max = position + offset + sprSurface->GetScale();
 
 	if (point.x < min.x || point.x > max.x) return false;
 	if (point.y < min.y || point.y > max.y) return false;

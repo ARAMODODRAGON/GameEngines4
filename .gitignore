@@ -1,3 +1,27 @@
 
 *.ipch
 *.opendb
+*.obj
+GameEngines4/Debug/TestComponent.obj
+GameEngines4/Debug/StartScene.obj
+GameEngines4/Debug/SpriteSurface.obj
+GameEngines4/Debug/SceneGraph.obj
+GameEngines4/Debug/OctSpatialPartition.obj
+GameEngines4/Debug/MouseEventListener.obj
+GameEngines4/Debug/Model.obj
+GameEngines4/Debug/Mesh.obj
+GameEngines4/Debug/MaterialLoader.obj
+GameEngines4/Debug/MaterialHandler.obj
+GameEngines4/Debug/Main.obj
+GameEngines4/Debug/LoadOBJModel.obj
+GameEngines4/Debug/LightSource.obj
+GameEngines4/Debug/GUIObject.obj
+GameEngines4/Debug/GUIImageComponent.obj
+GameEngines4/Debug/GameScene.obj
+GameEngines4/Debug/GameObject.obj
+GameEngines4/Debug/Game1.obj
+GameEngines4/Debug/EventListener.obj
+GameEngines4/Debug/CoreEngine.obj
+GameEngines4/Debug/CollisionHandler.obj
+GameEngines4/Debug/CollisionDetection.obj
+GameEngines4/Debug/Camera.obj

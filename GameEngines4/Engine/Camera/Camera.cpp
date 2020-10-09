@@ -1,5 +1,6 @@
 #include "Camera.h"
 #include "../Core/CoreEngine.h"
+#include <glm/gtx/string_cast.hpp>
 
 void Camera::UpdateCameraVec() {
 	forward.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
@@ -40,6 +41,12 @@ Camera::Camera()
 		-1.0f,
 		1.0f
 	);
+
+	std::cout << "ortho: " << glm::to_string(ortho) << std::endl;
+	/*( 0.001563,  0.000000,  0.000000, 0.000000),
+	  ( 0.000000,  0.002778,  0.000000, 0.000000),
+	  ( 0.000000,  0.000000, -1.000000, 0.000000),
+	  (-1.000000, -1.000000, -0.000000, 1.000000)*/
 }
 
 Camera::~Camera() { OnDestroy(); }
@@ -100,5 +107,5 @@ void Camera::ProcessMouseMovement(glm::vec2 offset) {
 }
 
 void Camera::ProcessMouseZoom(int y) {
-	if (y != 0) position += static_cast<float>(y) * (forward * 2.0f); 
+	if (y != 0) position += static_cast<float>(y) * (forward * 2.0f);
 }
