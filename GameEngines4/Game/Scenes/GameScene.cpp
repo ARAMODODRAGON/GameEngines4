@@ -8,7 +8,7 @@
 
 GameScene::GameScene() : IScene() { }
 
-GameScene::~GameScene() { 
+GameScene::~GameScene() {
 	SceneGraph::GetSingleton()->OnDestroy();
 }
 
@@ -30,7 +30,7 @@ bool GameScene::OnCreate() {
 
 	SceneGraph::GetSingleton()->AddModel(model0);
 	SceneGraph::GetSingleton()->AddModel(model1);
-	
+
 	// gameobject
 	GameObject* apple = new GameObject(model1, glm::vec3(5.0f, -1.0f, 0.0f));
 	apple->SetScale(glm::vec3(0.5f));
@@ -53,7 +53,7 @@ bool GameScene::OnCreate() {
 	GUIImageComponent* igui = gui->AddComponent<GUIImageComponent>();
 	if (igui) {
 		TextureHandler::GetSingleton()->CreateTexture("test", "Resources/Textures/CheckerboardTexture.png");
-		igui->OnCreate("test", vec2(0.0f), vec2(0.0f), 0.0f, vec4(1.0f, 1.0f, 1.0f, 1.0f));
+		igui->OnCreate("test", CoreEngine::GetSingleton()->GetScreenSize() * 0.5f, vec2(1.0f), 0.0f, vec4(1.0f, 1.0f, 1.0f, 1.0f));
 	}
 	SceneGraph::GetSingleton()->AddGUIObject(gui, "test GUI");
 
@@ -68,7 +68,7 @@ void GameScene::Render() {
 	SceneGraph::GetSingleton()->Render(CoreEngine::GetSingleton()->GetCamera());
 }
 
-void GameScene::Draw() { 
+void GameScene::Draw() {
 	SceneGraph::GetSingleton()->Draw(CoreEngine::GetSingleton()->GetCamera());
 }
 

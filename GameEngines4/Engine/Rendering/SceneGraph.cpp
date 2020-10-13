@@ -24,7 +24,6 @@ void SceneGraph::Draw(Camera* camera) {
 		p.second->Draw(camera);
 	}
 
-	glUseProgram(0);
 	glDisable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
 }
