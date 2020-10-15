@@ -60,14 +60,14 @@ public:
 		if (hit) { std::cout << "this object was hit (name: \"" + name + "\")" << std::endl; }
 	}
 
-	template<class T>
-	T* AddComponent() {
+	template<class T, class... Args>
+	T* AddComponent(Args&&... args) {
 		// first check if the component already exists and return it
 		if (T* comp = GetComponent<T>())
 			return comp;
 
-		// create a new T
-		T* comp = new T();
+		// create a new T instance, unpack any arguments
+		T* comp = new T(std::forward<Args>(args)...);
 
 		// it is a component add it
 		if (Component* c = dynamic_cast<Component*>(comp)) {
