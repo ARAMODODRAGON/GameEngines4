@@ -55,7 +55,7 @@ bool GameScene::OnCreate() {
 	GUIImageComponent* igui = gui->AddComponent<GUIImageComponent>();
 	if (igui) {
 		TextureHandler::GetSingleton()->CreateTexture("test", "Resources/Textures/CheckerboardTexture.png");
-		igui->OnCreate("test", CoreEngine::GetSingleton()->GetScreenSize() * 0.5f, vec2(1.0f), 0.0f, vec4(1.0f, 1.0f, 1.0f, 1.0f));
+		igui->OnCreate("test", CoreEngine::GetSingleton()->GetScreenSize() * 0.2f, vec2(0.1f, 0.1f));
 	}
 	SceneGraph::GetSingleton()->AddGUIObject(gui, "test GUI");
 

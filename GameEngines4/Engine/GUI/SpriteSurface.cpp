@@ -73,9 +73,9 @@ void SpriteSurface::Draw(Camera* camera, const vec2& position) {
 	glBindTexture(GL_TEXTURE_2D, texID);
 
 	glm::mat4 model;
-	glm::translate(model, vec3(position, 0.0f));
-	glm::rotate(model, angle, vec3(0.0f, 0.0f, 1.0));
-	glm::scale(model, vec3(scale.x * size.x, scale.y * size.y, 1.0f));
+	model = glm::translate(model, vec3(position, 0.0f));
+	model = glm::rotate(model, angle, vec3(0.0f, 0.0f, 1.0));
+	model = glm::scale(model, vec3(scale.x * size.x, scale.y * size.y, 1.0f));
 	//glm::scale(model, vec3(scale.x, scale.y, 1.0f));
 
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));

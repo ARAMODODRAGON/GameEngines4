@@ -47,3 +47,11 @@
 [INFO]: matAmbientLoc:   4 in: Mesh.cpp on line: 152
 [INFO]: matDiffuseLoc:   5 in: Mesh.cpp on line: 153
 [INFO]: matSpecularLoc:   8 in: Mesh.cpp on line: 154
+[INFO]: texture size: ivec2(2000, 2000) in: SpriteSurface.cpp on line: 22
+[INFO]: shaderProgram: 9 in: SpriteSurface.cpp on line: 58
+[INFO]: modeLoc: 1 in: SpriteSurface.cpp on line: 59
+[INFO]: projLoc: 2 in: SpriteSurface.cpp on line: 60
+[INFO]: tintLoc: 3 in: SpriteSurface.cpp on line: 61
+[INFO]: textureLoc: 0 in: SpriteSurface.cpp on line: 62
+[INFO]: Playing sound! in: PlayOnHit.cpp on line: 14
+[ERROR]: failed to release channel in: AudioHandler.cpp on line: 61
