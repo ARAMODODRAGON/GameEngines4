@@ -1,4 +1,7 @@
 #include "AudioHandler.h"
+#include "../Core/Debug.h"
+
+std::unique_ptr<AudioHandler> AudioHandler::inst = nullptr;
 
 AudioHandler::AudioHandler() : soundSystem(nullptr) {
 
@@ -15,19 +18,32 @@ bool AudioHandler::Initialize(
 	const vec3& up
 ) {
 	// create the fmod sound system
-	FMOD::System_Create(&soundSystem);
+	if (FMOD::System_Create(&soundSystem) != FMOD_OK) {
+		DEBUG_ERROR("failed to create system");
+		return false;
+	}
 
 	int numdrivers;
-	soundSystem->getNumDrivers(&numdrivers);
+	if (soundSystem->getNumDrivers(&numdrivers) != FMOD_OK) {
+		DEBUG_ERROR("failed get num drivers");
+		return false;
+	}
 	if (numdrivers == 0) return false;
 
 	// init the system
-	soundSystem->init(10, FMOD_INIT_NORMAL, nullptr);
+	if (soundSystem->init(10, FMOD_INIT_NORMAL, nullptr) != FMOD_OK) {
+		DEBUG_ERROR("failed to init system");
+		return false;
+	}
+	// FMOD_INIT_NORMAL | FMOD_3D | FMOD_INIT_3D_RIGHTHANDED
 	FMOD_VECTOR fvPosition = ToFModVector(position);
 	FMOD_VECTOR fvVelocity = ToFModVector(velocity);
 	FMOD_VECTOR fvForward = ToFModVector(forward);
 	FMOD_VECTOR fvUp = ToFModVector(up);
-	soundSystem->set3DListenerAttributes(0, &fvPosition, &fvVelocity, &fvForward, &fvUp);
+	if (soundSystem->set3DListenerAttributes(0, &fvPosition, &fvVelocity, &fvForward, &fvUp) != FMOD_OK) {
+		DEBUG_ERROR("failed to set 3D listener attributes");
+		return false;
+	}
 
 	// success
 	return true;
@@ -40,17 +56,23 @@ void AudioHandler::Update() {
 void AudioHandler::OnDestroy() {
 	// delete the sounds and channels
 
-	for (auto spair : sounds) {
-		 spair.second->release();
-	}
-	sounds.clear();
-
 	for (auto cpair : channels) {
-		cpair.second->stop();
+		if (cpair.second->stop() != FMOD_OK) {
+			DEBUG_ERROR("failed to release channel");
+		}
 	}
 	channels.clear();
 
-	soundSystem->release();
+	for (auto spair : sounds) {
+		if (spair.second->release() != FMOD_OK) {
+			DEBUG_ERROR("failed to release sound");
+		}
+	}
+	sounds.clear();
+
+	if (soundSystem->release() != FMOD_OK) {
+		DEBUG_ERROR("failed to release system");
+	}
 	soundSystem = nullptr;
 }
 
@@ -62,7 +84,7 @@ FMOD_VECTOR AudioHandler::ToFModVector(const vec3& glmvec) {
 }
 
 void AudioHandler::LoadSound(const string& soundFile, bool shouldLoop, bool is3D, bool streamAudio) {
-	if (FMOD::Sound* sound = GetSound(soundFile)) return;
+	if (GetSound(soundFile) != nullptr) return;
 
 	FMOD_MODE mode = FMOD_DEFAULT;
 	if (shouldLoop)		mode |= FMOD_LOOP_NORMAL;
@@ -71,7 +93,10 @@ void AudioHandler::LoadSound(const string& soundFile, bool shouldLoop, bool is3D
 	else				mode |= FMOD_CREATECOMPRESSEDSAMPLE;
 
 	FMOD::Sound* sound = nullptr;
-	if (soundSystem->createSound(soundFile.c_str(), mode, nullptr, &sound) != FMOD_OK) return;
+	if (soundSystem->createSound(soundFile.c_str(), mode, nullptr, &sound) != FMOD_OK) {
+		DEBUG_ERROR("failed to create sound");
+		return;
+	}
 
 	sounds.insert(std::make_pair(soundFile, sound));
 }
@@ -90,23 +115,58 @@ int32_t AudioHandler::PlaySound(const string& soundFile, const vec3& position, c
 
 	// channel ID
 	FMOD::Channel* chan = nullptr;
-	soundSystem->playSound(s, nullptr, true, &chan);
+	if (soundSystem->playSound(s, nullptr, true, &chan) != FMOD_OK) {
+		DEBUG_ERROR("failed to play sound");
+		return -1;
+	}
 
 	// set the 3d attributes
 	FMOD_MODE mode;
-	s->getMode(&mode);
-	if (mode & FMOD_3D) {
+	FMOD_RESULT result = s->getMode(&mode);
+	if (result == FMOD_OK && mode & FMOD_3D) {
 		FMOD_VECTOR fvPosition = ToFModVector(position);
 		FMOD_VECTOR fvVelocity = ToFModVector(velocity);
 		chan->set3DAttributes(&fvPosition, &fvVelocity);
+	} else {
+		DEBUG_ERROR("failed to get mode");
+		return -1;
 	}
 
 	// set the volume and then unpause it
-	chan->setVolume(volume);
-	chan->setPaused(false);
+	if (chan->setVolume(volume) != FMOD_OK) {
+		DEBUG_ERROR("failed to set volume");
+		return -1;
+	}
+	if (chan->setPaused(false) != FMOD_OK) {
+		DEBUG_ERROR("failed to set paused");
+		return -1;
+	}
 
 	// add the channel and return the id
 	int32_t id = channelCreatedCount++;
 	channels.insert(std::make_pair(id, chan));
 	return id;
+}
+
+void AudioHandler::UpdateChannel(int32_t channel_, const vec3& position, const vec3& velocity) {
+	auto it = channels.find(channel_);
+	if (it == channels.end()) return;
+
+	// set the 3d attributes
+	FMOD_VECTOR fvPosition = ToFModVector(position);
+	FMOD_VECTOR fvVelocity = ToFModVector(velocity);
+	if (it->second->set3DAttributes(&fvPosition, &fvVelocity) != FMOD_OK) {
+		DEBUG_ERROR("failed to set channel 3D attributes");
+	}
+}
+
+bool AudioHandler::IsPlaying(int32_t channel_) {
+	auto it = channels.find(channel_);
+	if (it == channels.end()) return false;
+	bool isPlaying;
+	if (it->second->isPlaying(&isPlaying) != FMOD_OK) {
+		DEBUG_ERROR("failed to get is playing");
+		return false;
+	}
+	return isPlaying;
 }

@@ -10,6 +10,7 @@ using std::map;
 using glm::vec3;
 
 class AudioHandler {
+	friend class AudioSource;
 
 	static std::unique_ptr<AudioHandler> inst;
 	friend std::default_delete<AudioHandler>;
@@ -57,7 +58,7 @@ private:
 	static FMOD_VECTOR ToFModVector(const vec3& glmvec);
 
 	// loads a sound
-	void LoadSound(const string& soundFile, bool shouldLoop, bool is3D, bool streamAudio = false);
+	void LoadSound(const string& soundFile, bool shouldLoop = false, bool is3D = true, bool streamAudio = false);
 
 	// returns a sound pointer
 	FMOD::Sound* GetSound(const string& soundFile);
@@ -66,7 +67,7 @@ private:
 	int32_t PlaySound(const string& soundFile, const vec3& position, const vec3& velocity = vec3(0.0f), float volume = 0.0f);
 
 	// updates a channels position and velocity
-	void UpdateChannel(int32_t channel_, const vec3& position, const vec3& velocity);
+	void UpdateChannel(int32_t channel_, const vec3& position = vec3(0.0f), const vec3& velocity = vec3(0.0f));
 
 	// returns true if a channel is playing a sound
 	bool IsPlaying(int32_t channel_);

@@ -1,26 +1,3 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(491,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (GameEngines4Ver2.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  Camera.cpp
-  TestComponent.cpp
-  CoreEngine.cpp
-  OctSpatialPartition.cpp
-  EventListener.cpp
-  MouseEventListener.cpp
-D:\Documents\~~School\Semester 5\Game Engines 5\GameEngines5\GameEngines4\Engine\Event\MouseEventListener.cpp(14,36): warning C4244: '=': conversion from 'T' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-          and
-          [
-              T=int
-          ]
-  CollisionDetection.cpp
-  CollisionHandler.cpp
-  GameObject.cpp
-  SceneGraph.cpp
-  Game1.cpp
-  GameScene.cpp
-  StartScene.cpp
-  Main.cpp
-  Generating Code...
+  AudioHandler.cpp
   GameEngines4.vcxproj -> D:\Documents\~~School\Semester 5\Game Engines 5\GameEngines5\Debug\GameEngines5.exe

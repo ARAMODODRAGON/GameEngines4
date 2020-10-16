@@ -3,8 +3,10 @@
 #include "../../Engine/Graphics/ShaderHandler.h"
 #include "../../Engine/Core/CoreEngine.h"
 #include <glm/gtx/string_cast.hpp>
-#include "../../Engine/Components/TestComponent.h"
 #include "../../Engine/GUI/GUIImageComponent.h"
+#include "../../Engine/Audio/AudioHandler.h"
+#include "../../Engine/Audio/AudioSource.h"
+#include "../../Engine/Components/PlayOnHit.h"
 
 GameScene::GameScene() : IScene() { }
 
@@ -35,8 +37,8 @@ bool GameScene::OnCreate() {
 	GameObject* apple = new GameObject(model1, glm::vec3(5.0f, -1.0f, 0.0f));
 	apple->SetScale(glm::vec3(0.5f));
 
-	apple->AddComponent<TestComponent1>();
-	apple->AddComponent<TestComponent2>();
+	apple->AddComponent<AudioSource>(string("Resources/Sounds/ZAP_Sound.wav") /* via freesound */);
+	apple->AddComponent<PlayOnHit>(); // needs to be added after so it can get a ptr to the audio source
 
 	SceneGraph::GetSingleton()->AddGameObject(new GameObject(model0));
 	SceneGraph::GetSingleton()->AddGameObject(apple, "apple");
@@ -62,6 +64,7 @@ bool GameScene::OnCreate() {
 
 void GameScene::Update(const float& delta) {
 	SceneGraph::GetSingleton()->Update(delta);
+	AudioHandler::GetSingleton()->Update();
 }
 
 void GameScene::Render() {
