@@ -25,3 +25,4 @@ GameEngines4/Debug/CoreEngine.obj
 GameEngines4/Debug/CollisionHandler.obj
 GameEngines4/Debug/CollisionDetection.obj
 GameEngines4/Debug/Camera.obj
+*.obj
