@@ -64,7 +64,7 @@ private:
 	FMOD::Sound* GetSound(const string& soundFile);
 
 	// plays a sound and returns the channel ID
-	int32_t PlaySound(const string& soundFile, const vec3& position, const vec3& velocity = vec3(0.0f), float volume = 0.0f);
+	int32_t PlaySound(const string& soundFile, const vec3& position, const vec3& velocity = vec3(0.0f), float volume = 2.0f);
 
 	// updates a channels position and velocity
 	void UpdateChannel(int32_t channel_, const vec3& position = vec3(0.0f), const vec3& velocity = vec3(0.0f));

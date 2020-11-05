@@ -12,7 +12,10 @@ void PlayOnHit::OnCreate() {
 void PlayOnHit::Update(const float&) { 
 	if (source && wasHitLastFrame != GetObject()->GetHit()) {
 		DEBUG_INFO("Playing sound!");
-		source->PlaySound();
+		if (!source->IsPlaying()) {
+			source->PlaySound();
+		}
+		
 	}
-	wasHitLastFrame = GetObject()->GetHit();
+	//wasHitLastFrame = GetObject()->GetHit();
 }

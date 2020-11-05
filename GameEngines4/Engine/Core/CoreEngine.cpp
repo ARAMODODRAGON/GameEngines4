@@ -37,7 +37,7 @@ bool CoreEngine::OnCreate(std::string name_, int width_, int height_) {
 	ShaderHandler::GetSingleton()->CreateProgram("TextureShader", "Engine/Shaders/TextureShader.vert", "Engine/Shaders/TextureShader.frag");
 	ShaderHandler::GetSingleton()->CreateProgram("SpriteShader", "Engine/Shaders/SpriteVertShader.glsl", "Engine/Shaders/SpriteFragShader.glsl");
 
-	AudioHandler::GetSingleton()->Initialize();
+	//AudioHandler::GetSingleton()->Initialize();
 
 	// create game
 	if (game && !game->OnCreate()) {
@@ -119,7 +119,7 @@ void CoreEngine::Render() {
 
 void CoreEngine::OnDestroy() {
 
-	AudioHandler::GetSingleton()->OnDestroy();
+	//AudioHandler::GetSingleton()->OnDestroy();
 	ShaderHandler::GetSingleton()->OnDestroy();
 	TextureHandler::GetSingleton()->OnDestroy();
 	SceneGraph::GetSingleton()->OnDestroy();

@@ -170,3 +170,4 @@ bool AudioHandler::IsPlaying(int32_t channel_) {
 	}
 	return isPlaying;
 }
+

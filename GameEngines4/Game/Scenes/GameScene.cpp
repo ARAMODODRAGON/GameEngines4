@@ -22,6 +22,9 @@ bool GameScene::OnCreate() {
 	CoreEngine::GetSingleton()->SetCamera(new Camera());
 	CoreEngine::GetSingleton()->GetCamera()->SetPosition(glm::vec3(0.0f, 2.0f, 10.0f));
 
+	AudioHandler::GetSingleton()->Initialize();
+
+
 	// create shape gameobject
 
 	GLuint colorShProg = ShaderHandler::GetSingleton()->GetShader("TextureShader");
@@ -77,6 +80,7 @@ void GameScene::Draw() {
 
 void GameScene::OnDestroy() {
 	CollisionHandler::GetSingleton()->OnDestroy();
+	AudioHandler::GetSingleton()->OnDestroy();
 }
 
 

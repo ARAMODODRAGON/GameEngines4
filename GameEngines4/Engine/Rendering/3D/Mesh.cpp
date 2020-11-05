@@ -146,12 +146,12 @@ void Mesh::GenerateBuffers() {
 	DEBUG_INFO("lightDiffuseLoc: " + TEXT(lightDiffuseLoc));
 	DEBUG_INFO("lightColorLoc:   " + TEXT(lightColorLoc));
 
-	DEBUG_INFO("diffuseMap:   " + TEXT(matDiffuseMapLoc));
-	DEBUG_INFO("matShinynessLoc:   " + TEXT(matShinynessLoc));
+	DEBUG_INFO("diffuseMap:		      " + TEXT(matDiffuseMapLoc));
+	DEBUG_INFO("matShinynessLoc:	  " + TEXT(matShinynessLoc));
 	DEBUG_INFO("matTransparencyLoc:   " + TEXT(matTransparencyLoc));
-	DEBUG_INFO("matAmbientLoc:   " + TEXT(matAmbientLoc));
-	DEBUG_INFO("matDiffuseLoc:   " + TEXT(matDiffuseLoc));
-	DEBUG_INFO("matSpecularLoc:   " + TEXT(matSpecularLoc));
+	DEBUG_INFO("matAmbientLoc:        " + TEXT(matAmbientLoc));
+	DEBUG_INFO("matDiffuseLoc:        " + TEXT(matDiffuseLoc));
+	DEBUG_INFO("matSpecularLoc:       " + TEXT(matSpecularLoc));
 
 }
 //matShinynessLoc, matTransparencyLoc, matAmbientLoc, matDiffuseLoc, matSpecularLoc

@@ -165,6 +165,8 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Engine\Core\Window.cpp" />
     <ClCompile Include="Engine\Core\Timer.cpp" />
+    <ClCompile Include="Engine\Particles\Particle.cpp" />
+    <ClCompile Include="Engine\Particles\ParticleEmitter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Audio\AudioHandler.h" />
@@ -203,6 +205,8 @@
     <ClInclude Include="Game\Game1.h" />
     <ClInclude Include="Game\Scenes\GameScene.h" />
     <ClInclude Include="Game\Scenes\StartScene.h" />
+    <ClInclude Include="Engine\Particles\Particle.h" />
+    <ClInclude Include="Engine\Particles\ParticleEmitter.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Shaders\ColorShader.frag" />
