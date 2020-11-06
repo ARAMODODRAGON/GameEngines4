@@ -44,16 +44,16 @@ void ParticleEmitter::Update(const float& delta) {
 void ParticleEmitter::Render(Camera* camera) { 
 	
 	// render all living particles
-	glDisable(GL_DEPTH);
+	//glDisable(GL_DEPTH);
 	glUseProgram(shaderID);
 	for (auto& p : particles) {
 		// check
-		if (p.GetLifeTime() < 0.0f) continue;
+		//if (p.GetLifeTime() < 0.0f) continue;
 
 		p.Render(camera);
 	}
 	glUseProgram(0);
-	glEnable(GL_DEPTH);
+	//glEnable(GL_DEPTH);
 	
 }
 

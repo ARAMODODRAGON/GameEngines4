@@ -16,9 +16,6 @@ Particle::~Particle() { }
 
 void Particle::Render(Camera* camera_) {
 
-	// safety
-	glBindVertexArray(0);
-
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 	glEnable(GL_PROGRAM_POINT_SIZE);
 
@@ -33,11 +30,8 @@ void Particle::Render(Camera* camera_) {
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(persp));
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 
-	glPointSize(size);
-
 	glDrawArrays(GL_POINTS, 0, 1);
 
-	glUseProgram(0);
 	glDisable(GL_PROGRAM_POINT_SIZE);
 
 }
