@@ -1,4 +1,6 @@
 #include "Model.h"
+#include "GL\GLMesh.h"
+#include "../../Core/CoreEngine.h"
 
 Model::Model(
 	const string& objFilePath,
@@ -75,8 +77,14 @@ glm::mat4 Model::GetModelMat(
 }
 
 void Model::LoadModel() {
+	auto rt = CoreEngine::GetSingleton()->GetRendererType();
 	for (size_t i = 0; i < loadObj->GetSubmeshes().size(); ++i) {
-		subMeshes.push_back(new Mesh(loadObj->GetSubmeshes()[i], shaderprogram));
+		switch (rt) {
+			case RendererType::OpenGL:
+				subMeshes.push_back(new GLMesh(loadObj->GetSubmeshes()[i], shaderprogram));
+				break;
+			default: break;
+		}
 	}
 
 	box = loadObj->GetBoundingBox();

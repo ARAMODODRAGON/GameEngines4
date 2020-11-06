@@ -106,7 +106,7 @@ void CoreEngine::Update(const float& delta) {
 
 void CoreEngine::Render() {
 
-	renderer->ClearScreen(vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	renderer->ClearScreen(vec4(0.0f, 0.0f, 0.0f, 1.0f));
 
 	/// render objects
 	if (game) {

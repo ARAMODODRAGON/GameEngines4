@@ -1,7 +1,6 @@
 #ifndef MESH_H
 #define MESH_H
 
-#include <glew.h>
 #include <vector>
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -23,24 +22,12 @@ struct Submesh {
 };
 
 class Mesh {
-private:
-	// vertex object and vertex buffer
-	GLuint VAO, VBO;
-	GLuint shaderProgram;
-	GLuint modelLoc, viewLoc, proLoc, cameraPosLoc;
-	GLuint lightPosLoc, lightAmbientLoc, lightDiffuseLoc, lightColorLoc;
-	GLuint matDiffuseMapLoc, matShinynessLoc, matTransparencyLoc, matAmbientLoc, matDiffuseLoc, matSpecularLoc;
-
-	Submesh submesh;
-
 public:
-	Mesh(const Submesh& subMesh, GLuint program);
-	~Mesh();
-	void Render(Camera* camera, std::vector<glm::mat4> instances);
 
-private:
-	// creating the VAO and VBO
-	void GenerateBuffers();
+	Mesh() { }
+	virtual ~Mesh() = 0 { }
+	virtual void Render(Camera* camera, std::vector<glm::mat4> instances) = 0;
+
 };
 
 #endif // !MESH_H

@@ -4,16 +4,17 @@
 #include "../Engine/Graphics/ShaderHandler.h"
 
 bool Game1::OnCreate() {
-	if (CoreEngine::GetSingleton()->GetCurrentScene() == 0) {
-		scene = new StartScene();
-		currentSceneNumber = 0;
-		return scene->OnCreate();
-	}
 
 	ShaderHandler::GetSingleton()->CreateProgram("ColorShader", "Engine/Shaders/ColorShader.vert", "Engine/Shaders/ColorShader.frag");
 	ShaderHandler::GetSingleton()->CreateProgram("TextureShader", "Engine/Shaders/TextureShader.vert", "Engine/Shaders/TextureShader.frag");
 	ShaderHandler::GetSingleton()->CreateProgram("SpriteShader", "Engine/Shaders/SpriteVertShader.glsl", "Engine/Shaders/SpriteFragShader.glsl");
 	ShaderHandler::GetSingleton()->CreateProgram("ParticleShader", "Engine/Shaders/ParticleShader.vert", "Engine/Shaders/ParticleShader.frag");
+
+	if (CoreEngine::GetSingleton()->GetCurrentScene() == 0) {
+		scene = new StartScene();
+		currentSceneNumber = 0;
+		return scene->OnCreate();
+	}
 
 	Debug::FatalError("SceneNumber was not initialized to 0", "Game1.cpp", __LINE__);
 	return false;
