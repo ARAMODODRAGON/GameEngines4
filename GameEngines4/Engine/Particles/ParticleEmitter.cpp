@@ -9,7 +9,7 @@ float randrange(float min, float max) {
 }
 
 ParticleEmitter::ParticleEmitter(uint32_t numOfParticles_, std::string shaderProgram_)
-	: shaderID(0), numOfParticles(numOfParticles_) {
+	: VAO(0), shaderID(0), numOfParticles(numOfParticles_) {
 
 	// load shader
 	shaderID = ShaderHandler::GetSingleton()->GetShader(shaderProgram_);
@@ -25,39 +25,45 @@ ParticleEmitter::ParticleEmitter(uint32_t numOfParticles_, std::string shaderPro
 		Randomize(particles[i]);
 	}
 
+	glCreateVertexArrays(1, &VAO);
+
 }
 
-ParticleEmitter::~ParticleEmitter() { }
+ParticleEmitter::~ParticleEmitter() {
+	glDeleteVertexArrays(1, &VAO);
+}
 
 void ParticleEmitter::Update(const float& delta) {
 	// update particles
 	for (auto& p : particles) {
 		// if its ded, restart it
-		if (p.GetLifeTime() < 0.0f) 
+		if (p.GetLifeTime() < 0.0f)
 			Randomize(p);
 		// update
-		p.SetPosition(p.GetPosition() + p.GetVelocity() * delta); 
+		p.SetPosition(p.GetPosition() + p.GetVelocity() * delta);
 		p.SetLifeTime(p.GetLifeTime() - delta);
 	}
 }
 
-void ParticleEmitter::Render(Camera* camera) { 
-	
+void ParticleEmitter::Render(Camera* camera) {
+
 	// render all living particles
 	//glDisable(GL_DEPTH);
 	glUseProgram(shaderID);
+	glBindVertexArray(VAO);
 	for (auto& p : particles) {
 		// check
 		//if (p.GetLifeTime() < 0.0f) continue;
 
 		p.Render(camera);
 	}
+	glBindVertexArray(0);
 	glUseProgram(0);
 	//glEnable(GL_DEPTH);
-	
+
 }
 
-void ParticleEmitter::Randomize(Particle& p) { 
+void ParticleEmitter::Randomize(Particle& p) {
 
 	p.SetLifeTime(randrange(1.0f, 3.0f));
 	p.SetSize(randrange(1.0f, 10.0f));

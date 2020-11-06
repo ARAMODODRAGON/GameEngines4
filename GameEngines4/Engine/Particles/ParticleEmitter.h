@@ -23,6 +23,7 @@ public:
 
 private:
 
+	uint32_t VAO;
 	uint32_t shaderID;
 
 	uint32_t numOfParticles;
