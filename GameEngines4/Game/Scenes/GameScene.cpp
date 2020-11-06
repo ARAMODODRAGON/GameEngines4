@@ -7,6 +7,7 @@
 #include "../../Engine/Audio/AudioHandler.h"
 #include "../../Engine/Audio/AudioSource.h"
 #include "../../Engine/Components/PlayOnHit.h"
+#include "../../Engine/Particles/ParticleEmitter.h"
 
 GameScene::GameScene() : IScene() { }
 
@@ -42,6 +43,7 @@ bool GameScene::OnCreate() {
 
 	apple->AddComponent<AudioSource>(string("Resources/Sounds/ZAP_Sound.wav") /* via freesound */);
 	apple->AddComponent<PlayOnHit>(); // needs to be added after so it can get a ptr to the audio source
+	apple->AddComponent<ParticleEmitter>(1000, "ParticleShader");
 
 	SceneGraph::GetSingleton()->AddGameObject(new GameObject(model0));
 	SceneGraph::GetSingleton()->AddGameObject(apple, "apple");
@@ -61,6 +63,7 @@ bool GameScene::OnCreate() {
 		igui->OnCreate("test", CoreEngine::GetSingleton()->GetScreenSize() * 0.2f, vec2(0.1f, 0.1f));
 	}
 	SceneGraph::GetSingleton()->AddGUIObject(gui, "test GUI");
+
 
 	return true;
 }

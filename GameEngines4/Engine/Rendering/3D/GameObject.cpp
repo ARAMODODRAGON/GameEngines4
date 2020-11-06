@@ -43,8 +43,9 @@ GameObject::~GameObject() {
 }
 
 void GameObject::Render(Camera* camera) {
-	// render the model if there is one
-	if (model) model->Render(camera);
+	for (Component* c : components) {
+		c->Render(camera);
+	}
 }
 
 void GameObject::Update(const float& delta) {

@@ -1,47 +1,68 @@
 #include "ParticleEmitter.h"
+#include <random>
 
-ParticleEmitter::ParticleEmitter(int numOfParticles_, std::string texture_, std::string shaderProgram_)
-{
-	textureID = TextureHandler::GetSingleton()->GetTexture(texture_);
+float randrange(float min, float max) {
+	// (static_cast<float>(rand()) / static_cast<float>(RAND_MAX)) gives a value between 0.0f and 1.0f
+	// * (max - min) + min will result in a value between min and max
+	// rand() isnt the best random generator but it works and this method garuntees any value with my given range
+	return (static_cast<float>(rand()) / static_cast<float>(RAND_MAX)) * (max - min) + min;
+}
+
+ParticleEmitter::ParticleEmitter(uint32_t numOfParticles_, std::string shaderProgram_)
+	: shaderID(0), numOfParticles(numOfParticles_) {
+
+	// load shader
 	shaderID = ShaderHandler::GetSingleton()->GetShader(shaderProgram_);
-
-	if (textureID == 0 ) {
-		DEBUG_ERROR("Texture not found");
-		return;
-	}
-
 	if (shaderID == 0) {
-		DEBUG_ERROR("Shader not found");
+		DEBUG_ERROR("No shader loaded");
 		return;
 	}
 
-	particles.reserve(numOfParticles_);
-
-	for (int i = 0; i < numOfParticles_; ++i) {
-		auto& p = new Particle(shaderID, textureID);
-		particles.push_back(p);
+	// create particles
+	particles.reserve(numOfParticles);
+	for (int i = 0; i < numOfParticles; ++i) {
+		particles.push_back(shaderID); // implicitly construct particle with the given shaderID
+		Randomize(particles[i]);
 	}
 
-
 }
 
-ParticleEmitter::~ParticleEmitter()
-{
+ParticleEmitter::~ParticleEmitter() { }
+
+void ParticleEmitter::Update(const float& delta) {
+	// update particles
+	for (auto& p : particles) {
+		// if its ded, restart it
+		if (p.GetLifeTime() < 0.0f) 
+			Randomize(p);
+		// update
+		p.SetPosition(p.GetPosition() + p.GetVelocity() * delta); 
+		p.SetLifeTime(p.GetLifeTime() - delta);
+	}
 }
 
-void ParticleEmitter::Update()
-{
-}
-
-void ParticleEmitter::Render()
-{
-}
-
-void ParticleEmitter::Ramdomize()
-{
-	// radomize particle velocity 
-	float tmpX = glm::linearRand(0, 10);
-	float tmpY = glm::linearRand(0, 10);
+void ParticleEmitter::Render(Camera* camera) { 
 	
+	// render all living particles
+	glDisable(GL_DEPTH);
+	glUseProgram(shaderID);
+	for (auto& p : particles) {
+		// check
+		if (p.GetLifeTime() < 0.0f) continue;
+
+		p.Render(camera);
+	}
+	glUseProgram(0);
+	glEnable(GL_DEPTH);
 	
+}
+
+void ParticleEmitter::Randomize(Particle& p) { 
+
+	p.SetLifeTime(randrange(1.0f, 3.0f));
+	p.SetSize(randrange(1.0f, 10.0f));
+	p.SetPosition(vec3(0.0f));
+	p.SetVelocity(glm::sphericalRand(randrange(0.0f, 100.0f)));
+	p.SetColour(vec4(randrange(0.0f, 1.0f), randrange(0.0f, 1.0f), randrange(0.0f, 1.0f), randrange(0.0f, 1.0f)));
+
 }

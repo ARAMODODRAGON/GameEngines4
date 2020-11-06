@@ -121,6 +121,7 @@ void SceneGraph::Update(const float delta) {
 }
 
 void SceneGraph::Render(Camera* camera_) {
+	// render models
 	for (std::pair<const GLuint, std::vector<Model*>> mo : sceneModels) {
 		glUseProgram(mo.first);
 		for (Model* model : mo.second) {
@@ -128,4 +129,9 @@ void SceneGraph::Render(Camera* camera_) {
 		}
 	}
 	glUseProgram(0);
+
+	// render game objects (the components essentially)
+	for (auto gpair : sceneGameObjects) {
+		gpair.second->Render(camera_);
+	}
 }

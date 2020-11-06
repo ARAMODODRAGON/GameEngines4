@@ -1,9 +1,4 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(491,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (GameEngines4Ver2.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  Particle.cpp
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(491,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (GameEngines4Ver2.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   ParticleEmitter.cpp
-C:\Users\andre\OneDrive\Desktop\GameEngines4\GameEngines4\Engine\Particles\ParticleEmitter.cpp(21,46): error C2440: 'initializing': cannot convert from 'Particle *' to 'Particle *&'
-C:\Users\andre\OneDrive\Desktop\GameEngines4\GameEngines4\Engine\Particles\ParticleEmitter.cpp(43,20): error C2039: 'line': is not a member of 'glm'
-C:\GameDev\OpenGL\include\glm\gtc\matrix_transform.inl(37): message : see declaration of 'glm'
-C:\Users\andre\OneDrive\Desktop\GameEngines4\GameEngines4\Engine\Particles\ParticleEmitter.cpp(44,1): error C2065: 'line': undeclared identifier
-C:\Users\andre\OneDrive\Desktop\GameEngines4\GameEngines4\Engine\Particles\ParticleEmitter.cpp(44,1): error C2143: syntax error: missing ';' before '}'
-  Generating Code...
+D:\Documents\`School\Semster 5\Engines\Engines Project\GameEngines4\Engine\Particles\ParticleEmitter.cpp(23,20): warning C4018: '<': signed/unsigned mismatch
+  GameEngines4.vcxproj -> D:\Documents\`School\Semster 5\Engines\Engines Project\Debug\GameEngines5.exe

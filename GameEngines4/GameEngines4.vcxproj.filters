@@ -240,6 +240,8 @@
     <None Include="Engine\Shaders\TextureShader.frag" />
     <None Include="Engine\Shaders\SpriteVertShader.glsl" />
     <None Include="Engine\Shaders\SpriteFragShader.glsl" />
+    <None Include="Engine\Shaders\ParticleShader.vert" />
+    <None Include="Engine\Shaders\ParticleShader.frag" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="EngineLog.txt" />

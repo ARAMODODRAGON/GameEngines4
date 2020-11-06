@@ -1,13 +1,10 @@
 #version 450 core
-in vec2 TexCoords;
+out vec4 FragColour;
 
-out vec4 colour;
-
-uniform vec4 colours;
-layout (location = 0)
-uniform sampler2D inputTexture;
+uniform vec4 colour;
 
 void main() {
-	vec4 tmpColour = texture(inputTexture, TexCoords) * colours;
-	colour = tmpColour;
+
+	FragColour = colour;
+	
 }

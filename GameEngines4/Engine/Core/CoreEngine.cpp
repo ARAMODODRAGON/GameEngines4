@@ -36,6 +36,7 @@ bool CoreEngine::OnCreate(std::string name_, int width_, int height_) {
 	ShaderHandler::GetSingleton()->CreateProgram("ColorShader", "Engine/Shaders/ColorShader.vert", "Engine/Shaders/ColorShader.frag");
 	ShaderHandler::GetSingleton()->CreateProgram("TextureShader", "Engine/Shaders/TextureShader.vert", "Engine/Shaders/TextureShader.frag");
 	ShaderHandler::GetSingleton()->CreateProgram("SpriteShader", "Engine/Shaders/SpriteVertShader.glsl", "Engine/Shaders/SpriteFragShader.glsl");
+	ShaderHandler::GetSingleton()->CreateProgram("ParticleShader", "Engine/Shaders/ParticleShader.vert", "Engine/Shaders/ParticleShader.frag");
 
 	//AudioHandler::GetSingleton()->Initialize();
 
@@ -102,7 +103,7 @@ void CoreEngine::Update(const float& delta) {
 void CoreEngine::Render() {
 
 	// clear the screen
-	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	/// render objects

@@ -7,29 +7,27 @@
 #include "../Graphics/ShaderHandler.h"
 #include "Particle.h"
 #include <glm/gtc/random.hpp>
+#include "../Rendering/3D/GameObject.h"
 
-
-
-class ParticleEmitter
-{ 
-	int numOfParticles;
-
-	GLuint shaderID;
-	GLuint textureID;
-
-	std::vector<Particle*>particles;
-
-
-
+class ParticleEmitter : public Component {
 public:
-	ParticleEmitter(int numOfParticles_,std::string texture_, std::string shaderProgram_);
-	~ParticleEmitter();
 
-	void Update();
+	ParticleEmitter(uint32_t numOfParticles_, std::string shaderProgram_);
+	~ParticleEmitter() final;
 
-	void Render();
+	// events
+	virtual void Update(const float& delta) override;
+	virtual void Render(Camera* camera) override;
 
-	void Ramdomize();
+	void Randomize(Particle& p);
+
+private:
+
+	uint32_t shaderID;
+
+	uint32_t numOfParticles;
+	std::vector<Particle> particles;
+
 };
-#endif // !PARTICLE_EMITTER_H
 
+#endif // !PARTICLE_EMITTER_H

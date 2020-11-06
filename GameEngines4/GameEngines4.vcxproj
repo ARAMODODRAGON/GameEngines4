@@ -213,6 +213,8 @@
     <None Include="Engine\Shaders\ColorShader.vert" />
     <None Include="Engine\Shaders\ColorShaderf - Copy.frag" />
     <None Include="Engine\Shaders\ColorShaderf - Copy.vert" />
+    <None Include="Engine\Shaders\ParticleShader.frag" />
+    <None Include="Engine\Shaders\ParticleShader.vert" />
     <None Include="Engine\Shaders\SpriteFragShader.glsl" />
     <None Include="Engine\Shaders\SpriteVertShader.glsl" />
     <None Include="Engine\Shaders\TextureShader.frag" />

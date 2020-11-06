@@ -2,6 +2,7 @@
 #define COMPONENT_H
 
 class GameObject;
+class Camera;
 
 class Component {
 
@@ -14,6 +15,7 @@ public:
 
 	virtual void OnCreate() { }
 	virtual void Update(const float& delta) { }
+	virtual void Render(Camera* camera) { }
 	virtual void OnDestroy() { }
 
 	void SetObject(GameObject* object);
