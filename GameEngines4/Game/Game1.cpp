@@ -1,6 +1,7 @@
 #include "Game1.h"
 #include "../Engine/Core/CoreEngine.h"
 #include "../Engine/Core/Debug.h"
+#include "../Engine/Graphics/ShaderHandler.h"
 
 bool Game1::OnCreate() {
 	if (CoreEngine::GetSingleton()->GetCurrentScene() == 0) {
@@ -8,6 +9,11 @@ bool Game1::OnCreate() {
 		currentSceneNumber = 0;
 		return scene->OnCreate();
 	}
+
+	ShaderHandler::GetSingleton()->CreateProgram("ColorShader", "Engine/Shaders/ColorShader.vert", "Engine/Shaders/ColorShader.frag");
+	ShaderHandler::GetSingleton()->CreateProgram("TextureShader", "Engine/Shaders/TextureShader.vert", "Engine/Shaders/TextureShader.frag");
+	ShaderHandler::GetSingleton()->CreateProgram("SpriteShader", "Engine/Shaders/SpriteVertShader.glsl", "Engine/Shaders/SpriteFragShader.glsl");
+	ShaderHandler::GetSingleton()->CreateProgram("ParticleShader", "Engine/Shaders/ParticleShader.vert", "Engine/Shaders/ParticleShader.frag");
 
 	Debug::FatalError("SceneNumber was not initialized to 0", "Game1.cpp", __LINE__);
 	return false;
@@ -47,6 +53,10 @@ void Game1::Update(const float& delta) {
 
 void Game1::Render() {
 	if (scene) scene->Render();
+
+	// swap buffers
+	SDL_GL_SwapWindow(CoreEngine::GetSingleton()->GetWindow()->GetWindow());
+
 }
 
 void Game1::Draw() {

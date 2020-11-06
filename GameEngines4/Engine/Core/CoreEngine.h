@@ -16,17 +16,6 @@
 #include "../Graphics/MaterialHandler.h"
 
 class CoreEngine {
-private:
-
-	// singleton
-	static std::unique_ptr<CoreEngine> Singleton;
-	friend std::default_delete<CoreEngine>;
-
-	// constructor and destructor
-	CoreEngine() 
-		: isRunning(false), window(nullptr), fps(60), game(nullptr), currentSceneNumber(0), camera(nullptr) { }
-	~CoreEngine() { }
-
 public:
 
 	// disable copy & move constructors/operators for singleton
@@ -34,23 +23,6 @@ public:
 	CoreEngine(CoreEngine&&) = delete;
 	CoreEngine& operator=(const CoreEngine&) = delete;
 	CoreEngine& operator=(CoreEngine&&) = delete;
-
-private:
-
-	// variables
-	bool isRunning;
-	Window* window;
-	Timer timer;
-	unsigned int fps;
-	Camera* camera;
-
-	// the game pointer
-	IGame* game;
-
-	// scene
-	int currentSceneNumber;
-
-public:
 
 	// get singleton
 	static CoreEngine* GetSingleton();
@@ -70,9 +42,11 @@ public:
 	int GetCurrentScene() { return currentSceneNumber; }
 	glm::vec2 GetScreenSize() { return glm::vec2(window->GetWidth(), window->GetHeight()); }
 	Camera* GetCamera() { return camera; }
+	Window* GetWindow() { return window; }
+	RendererType GetRendererType() const { return rendererType; }
 
 	// setters 
-	void SetIGame(IGame* game_) { game = game_; }
+	void SetIGame(IGame* game_, RendererType type) { game = game_, rendererType = type; }
 	void SetCurrentScene(int sceneNumber);
 	void SetCamera(Camera* camera_) { camera = camera_; }
 
@@ -88,6 +62,35 @@ private:
 	// events
 	void Update(const float& delta);
 	void Render();
+
+	// variables
+	bool isRunning;
+	Window* window;
+	Timer timer;
+	unsigned int fps;
+	Camera* camera;
+
+	// the game pointer
+	IGame* game;
+
+	// scene
+	int currentSceneNumber;
+
+	// rendering
+	Renderer* renderer;
+	RendererType rendererType;
+
+	// singleton
+	static std::unique_ptr<CoreEngine> Singleton;
+	friend std::default_delete<CoreEngine>;
+
+	// constructor and destructor
+	CoreEngine()
+		: isRunning(false), window(nullptr)
+		, fps(60), game(nullptr), currentSceneNumber(0)
+		, camera(nullptr), renderer(nullptr)
+		, rendererType(RendererType::OpenGL) { }
+	~CoreEngine() { }
 
 };
 

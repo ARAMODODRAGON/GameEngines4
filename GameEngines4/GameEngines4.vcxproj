@@ -155,9 +155,11 @@
     <ClCompile Include="Engine\Math\CollisionHandler.cpp" />
     <ClCompile Include="Engine\Rendering\3D\Component.cpp" />
     <ClCompile Include="Engine\Rendering\3D\GameObject.cpp" />
+    <ClCompile Include="Engine\Rendering\3D\GL\GLMesh.cpp" />
     <ClCompile Include="Engine\Rendering\3D\LoadOBJModel.cpp" />
     <ClCompile Include="Engine\Rendering\3D\Mesh.cpp" />
     <ClCompile Include="Engine\Rendering\3D\Model.cpp" />
+    <ClCompile Include="Engine\Rendering\GL\GLRenderer.cpp" />
     <ClCompile Include="Engine\Rendering\SceneGraph.cpp" />
     <ClCompile Include="Game\Game1.cpp" />
     <ClCompile Include="Game\Scenes\GameScene.cpp" />
@@ -198,9 +200,12 @@
     <ClInclude Include="Engine\Math\Ray.h" />
     <ClInclude Include="Engine\Rendering\3D\Component.h" />
     <ClInclude Include="Engine\Rendering\3D\GameObject.h" />
+    <ClInclude Include="Engine\Rendering\3D\GL\GLMesh.h" />
     <ClInclude Include="Engine\Rendering\3D\LoadOBJModel.h" />
     <ClInclude Include="Engine\Rendering\3D\Mesh.h" />
     <ClInclude Include="Engine\Rendering\3D\Model.h" />
+    <ClInclude Include="Engine\Rendering\GL\GLRenderer.h" />
+    <ClInclude Include="Engine\Rendering\Renderer.h" />
     <ClInclude Include="Engine\Rendering\SceneGraph.h" />
     <ClInclude Include="Game\Game1.h" />
     <ClInclude Include="Game\Scenes\GameScene.h" />

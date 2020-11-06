@@ -6,6 +6,7 @@
 #include <SDL_opengl.h>
 #include <string>
 #include <iostream>
+#include "../Rendering/Renderer.h"
 
 class Window {
 private:
@@ -13,28 +14,21 @@ private:
 	// variables
 	int width, height;
 	SDL_Window* window;
-	SDL_GLContext context;
 
 public:
 
 	// oncreate and ondestroy
-	bool OnCreate(std::string name_, int width_, int height_);
+	bool OnCreate(std::string name_, int width_, int height_, Renderer* renderer);
 	void OnDestroy();
 
 	// constructor & destructor
-	Window() : width(0), height(0), window(nullptr), context(0) { }
+	Window() : width(0), height(0), window(nullptr) { }
 	~Window() { OnDestroy(); }
 
 	// getters
 	int GetWidth() { return width; }
 	int GetHeight() { return height; }
 	SDL_Window* GetWindow() const { return window; }
-
-private:
-
-	// attributes
-	void SetPreAttributes();
-	void SetPostAttributes();
 
 };
 

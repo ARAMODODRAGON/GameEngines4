@@ -4,7 +4,7 @@
 int main(int argc, char* argv[]) {
 	
 	// set game
-	CoreEngine::GetSingleton()->SetIGame(new Game1());
+	CoreEngine::GetSingleton()->SetIGame(new Game1(), RendererType::OpenGL);
 
 	// create engine
 	if (!CoreEngine::GetSingleton()->OnCreate("title", 1280, 720)) {

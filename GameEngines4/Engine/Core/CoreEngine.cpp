@@ -3,6 +3,7 @@
 #include "../Graphics/ShaderHandler.h"
 #include <glm/vec3.hpp>
 #include "../Audio/AudioHandler.h"
+#include "../Rendering/GL/GLRenderer.h"
 
 std::unique_ptr<CoreEngine> CoreEngine::Singleton = nullptr;
 
@@ -21,22 +22,25 @@ bool CoreEngine::OnCreate(std::string name_, int width_, int height_) {
 	Debug::DebugInit();
 	Debug::SetSeverity(Message_Type::Info);
 
+	// create renderer
+	switch (rendererType) {
+		case RendererType::OpenGL: 
+			renderer = new GLRenderer();
+			break;
+		default: DEBUG_FATALERROR("Renderer type not supported"); return false; 
+	}
+
 	// create window pointer
 	window = new Window();
 
 	// create window
-	if (!window->OnCreate(name_, width_, height_)) {
+	if (!window->OnCreate(name_, width_, height_, renderer)) {
 		DEBUG_ERROR("Failed to create window");
 		return isRunning = false;
 	}
 
 	SDL_WarpMouseInWindow(window->GetWindow(), window->GetWidth() / 2, window->GetHeight() / 2);
 	MouseEventListener::RegisterEngineObject(this);
-
-	ShaderHandler::GetSingleton()->CreateProgram("ColorShader", "Engine/Shaders/ColorShader.vert", "Engine/Shaders/ColorShader.frag");
-	ShaderHandler::GetSingleton()->CreateProgram("TextureShader", "Engine/Shaders/TextureShader.vert", "Engine/Shaders/TextureShader.frag");
-	ShaderHandler::GetSingleton()->CreateProgram("SpriteShader", "Engine/Shaders/SpriteVertShader.glsl", "Engine/Shaders/SpriteFragShader.glsl");
-	ShaderHandler::GetSingleton()->CreateProgram("ParticleShader", "Engine/Shaders/ParticleShader.vert", "Engine/Shaders/ParticleShader.frag");
 
 	//AudioHandler::GetSingleton()->Initialize();
 
@@ -102,9 +106,7 @@ void CoreEngine::Update(const float& delta) {
 
 void CoreEngine::Render() {
 
-	// clear the screen
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	renderer->ClearScreen(vec4(1.0f, 0.0f, 0.0f, 1.0f));
 
 	/// render objects
 	if (game) {
@@ -112,9 +114,6 @@ void CoreEngine::Render() {
 
 		game->Draw();
 	}
-
-	// swap buffers
-	SDL_GL_SwapWindow(window->GetWindow());
 
 }
 
