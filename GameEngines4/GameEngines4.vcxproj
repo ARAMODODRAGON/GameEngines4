@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\GameDev\SDL\include;C:\GameDev\OpenGL\include;C:\GameDev\FMOD 2.01\inc;$(IncludePath)</IncludePath>
+    <IncludePath>C:\GameDev\SDL\include;C:\GameDev\OpenGL\include;C:\GameDev\FMOD 2.01\inc;C:\GameDev\nlohmann-json\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\GameDev\FMOD 2.01\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -214,6 +214,7 @@
     <ClInclude Include="Engine\Particles\ParticleEmitter.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Config.json" />
     <None Include="Engine\Shaders\ColorShader.frag" />
     <None Include="Engine\Shaders\ColorShader.vert" />
     <None Include="Engine\Shaders\ColorShaderf - Copy.frag" />

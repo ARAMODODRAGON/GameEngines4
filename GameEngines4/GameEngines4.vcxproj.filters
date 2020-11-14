@@ -257,6 +257,7 @@
     <None Include="Engine\Shaders\SpriteFragShader.glsl" />
     <None Include="Engine\Shaders\ParticleShader.vert" />
     <None Include="Engine\Shaders\ParticleShader.frag" />
+    <None Include="Config.json" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="EngineLog.txt" />
